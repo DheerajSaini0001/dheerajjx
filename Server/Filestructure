@@ -1,0 +1,37 @@
+server/
+│
+├── config/
+│     └── db.js
+│
+├── controllers/
+│     ├── authController.js
+│     ├── memoryController.js
+│     ├── thoughtController.js
+│     └── aboutController.js
+│
+├── models/
+│     ├── Admin.js
+│     ├── Memory.js
+│     ├── Thought.js
+│     └── About.js
+│
+├── routes/
+│     ├── authRoutes.js
+│     ├── memoryRoutes.js
+│     ├── thoughtRoutes.js
+│     └── aboutRoutes.js
+│
+├── middleware/
+│     ├── authMiddleware.js
+│     ├── errorMiddleware.js
+│     └── uploadMiddleware.js
+│
+├── utils/
+│     ├── generateToken.js
+│     └── cloudinary.js   (if using cloud storage)
+│
+├── uploads/              (only if using local storage)
+│
+├── .env
+├── server.js
+└── package.json

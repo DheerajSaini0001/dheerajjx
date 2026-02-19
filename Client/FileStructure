@@ -1,0 +1,58 @@
+client/
+│
+├── public/
+│
+├── src/
+│   ├── assets/
+│   │     ├── images/
+│   │     └── icons/
+│   │
+│   ├── components/
+│   │     ├── common/
+│   │     │     ├── Navbar.jsx
+│   │     │     ├── Footer.jsx
+│   │     │     ├── Button.jsx
+│   │     │     └── Loader.jsx
+│   │     │
+│   │     ├── memory/
+│   │     │     ├── MemoryCard.jsx
+│   │     │     └── MemoryForm.jsx
+│   │     │
+│   │     └── layout/
+│   │           ├── MainLayout.jsx
+│   │           └── AdminLayout.jsx
+│   │
+│   ├── pages/
+│   │     ├── public/
+│   │     │     ├── Home.jsx
+│   │     │     ├── About.jsx
+│   │     │     ├── Memories.jsx
+│   │     │     ├── Thoughts.jsx
+│   │     │     └── Gallery.jsx
+│   │     │
+│   │     └── admin/
+│   │           ├── Login.jsx
+│   │           ├── Dashboard.jsx
+│   │           ├── AddMemory.jsx
+│   │           └── ManageMemories.jsx
+│   │
+│   ├── routes/
+│   │     └── AppRoutes.jsx
+│   │
+│   ├── context/
+│   │     └── AuthContext.jsx
+│   │
+│   ├── services/
+│   │     ├── api.js
+│   │     ├── authService.js
+│   │     └── memoryService.js
+│   │
+│   ├── utils/
+│   │     └── helpers.js
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+├── tailwind.config.js
+└── package.json
