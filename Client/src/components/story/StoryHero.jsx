@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const StoryHero = () => {
     return (
-        <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-20 bg-gray-950">
+        <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-20 bg-white dark:bg-gray-950">
             {/* Full-screen grid pattern */}
             <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
 
@@ -45,7 +45,7 @@ const StoryHero = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.15 }}
                 >
-                    <h1 className="text-6xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-[0.95] text-white">
+                    <h1 className="text-6xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-[0.95] text-gray-900 dark:text-white">
                         Who is{' '}
                         <span className="relative inline-block">
                             <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-fuchsia-400 to-violet-400">
@@ -64,7 +64,7 @@ const StoryHero = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.4 }}
-                    className="text-gray-400 text-xl md:text-2xl font-light max-w-2xl mx-auto leading-relaxed"
+                    className="text-gray-600 dark:text-gray-400 text-xl md:text-2xl font-light max-w-2xl mx-auto leading-relaxed"
                     style={{ fontFamily: '"Dancing Script", cursive' }}
                 >
                     Not just a face. Not just a feed. A universe waiting to be felt.
@@ -83,7 +83,7 @@ const StoryHero = () => {
                         { n: '1', label: 'Mission' },
                     ].map((s, i) => (
                         <div key={i} className="text-center">
-                            <div className="text-4xl font-black text-white">{s.n}</div>
+                            <div className="text-4xl font-black text-gray-900 dark:text-white">{s.n}</div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">{s.label}</div>
                         </div>
                     ))}

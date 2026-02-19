@@ -28,7 +28,7 @@ const FeaturedMemories = ({ memories }) => {
     }
 
     return (
-        <section className="py-24 px-4 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
+        <section className="py-24 px-4 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
             <div className="max-w-7xl mx-auto space-y-16">
                 <div className="flex flex-col md:flex-row justify-between items-end text-center md:text-left gap-6">
                     <div className="space-y-2">

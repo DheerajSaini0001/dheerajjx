@@ -5,13 +5,13 @@ const ThoughtSection = ({ thought }) => {
     if (!thought) return null;
 
     return (
-        <section className="py-20 px-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
+        <section className="py-20 px-4 bg-gray-50 dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
             <div className="max-w-4xl mx-auto flex flex-col justify-center items-center text-center space-y-4">
                 <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.8, type: "spring" }}
-                    className="relative px-12 py-16 md:px-20 md:py-20 rounded-3xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-xl shadow-gray-200/50 dark:shadow-none"
+                    className="relative px-12 py-16 md:px-20 md:py-20 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none"
                 >
                     {/* Decorative Elements */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 rounded-b-full opacity-50"></div>

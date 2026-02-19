@@ -10,7 +10,7 @@ const highlights = [
 
 const StoryHighlight = () => {
     return (
-        <section className="py-20 px-4 bg-gray-950">
+        <section className="py-20 px-4 bg-gray-100 dark:bg-gray-950">
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -25,13 +25,13 @@ const StoryHighlight = () => {
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.1, duration: 0.5 }}
                         whileHover={{ y: -6, scale: 1.04 }}
-                        className={`relative flex flex-col items-center text-center gap-4 p-7 rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-md shadow-xl ${item.glow} hover:shadow-2xl transition-all duration-300 overflow-hidden`}
+                        className={`relative flex flex-col items-center text-center gap-4 p-7 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.03] backdrop-blur-md shadow-xl ${item.glow} hover:shadow-2xl transition-all duration-300 overflow-hidden`}
                     >
                         {/* Top accent line */}
                         <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r ${item.color}`} />
                         <span className="text-4xl">{item.icon}</span>
                         <span className={`text-xs uppercase tracking-widest font-bold bg-clip-text text-transparent bg-gradient-to-r ${item.color}`}>{item.label}</span>
-                        <p className="text-sm text-gray-400 font-medium leading-snug">{item.value}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 font-medium leading-snug">{item.value}</p>
                     </motion.div>
                 ))}
             </motion.div>

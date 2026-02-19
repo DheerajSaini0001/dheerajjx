@@ -61,7 +61,7 @@ const StorySection = ({ title, lines, index = 0 }) => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.7, delay: 0.15 }}
-                        className="text-3xl md:text-5xl font-black text-white mb-8 leading-[1.1] tracking-tight"
+                        className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-8 leading-[1.1] tracking-tight"
                     >
                         {title}
                     </motion.h2>
@@ -72,9 +72,7 @@ const StorySection = ({ title, lines, index = 0 }) => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.7, delay: 0.25 }}
-                        className={`relative rounded-2xl border ${a.border} overflow-hidden`}
-                        style={{ background: 'rgba(10,10,20,0.7)', backdropFilter: 'blur(20px)' }}
-                    >
+                        className={`relative rounded-2xl border ${a.border} overflow-hidden bg-white/90 dark:bg-[rgba(10,10,20,0.7)] backdrop-blur-sm`}>
                         {/* Top gradient bar */}
                         <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r ${a.gradient}`} />
 
@@ -94,7 +92,7 @@ const StorySection = ({ title, lines, index = 0 }) => {
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: 0.1 + i * 0.03, duration: 0.5 }}
-                                        className="text-xl md:text-2xl font-semibold text-white italic leading-snug"
+                                        className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white italic leading-snug"
                                         style={{ fontFamily: '"Dancing Script", cursive' }}
                                     >
                                         {line}
@@ -106,7 +104,7 @@ const StorySection = ({ title, lines, index = 0 }) => {
                                         whileInView={{ opacity: 1 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: 0.1 + i * 0.025, duration: 0.6 }}
-                                        className="text-gray-300 text-base md:text-lg leading-relaxed"
+                                        className="text-gray-700 dark:text-gray-300 text-base md:text-lg leading-relaxed"
                                     >
                                         {line}
                                     </motion.p>

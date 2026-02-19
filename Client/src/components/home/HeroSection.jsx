@@ -12,7 +12,7 @@ const HeroSection = () => {
                     alt="Background"
                     className="w-full h-full object-cover opacity-20 dark:opacity-10"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/50 to-white dark:from-gray-900/80 dark:via-gray-900/50 dark:to-gray-900" />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/50 to-white dark:from-gray-950/90 dark:via-gray-950/60 dark:to-gray-950" />
             </div>
 
             {/* Animated Background Gradient Blurs */}

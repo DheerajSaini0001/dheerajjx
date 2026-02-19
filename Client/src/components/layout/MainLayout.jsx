@@ -1,15 +1,21 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Navbar from '../common/Navbar';
-import Footer from '../common/Footer';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Navbar from "../common/Navbar";
+import Footer from "../common/Footer";
 
 const MainLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800 dark:bg-gray-950 dark:text-gray-200 transition-colors duration-300">
+
+      {/* Navbar */}
       <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-8 pt-24">
+
+      {/* Main Content */}
+      <main className="flex-grow pt-20 w-full">
         <Outlet />
       </main>
+
+      {/* Footer */}
       <Footer />
     </div>
   );

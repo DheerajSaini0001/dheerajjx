@@ -4,7 +4,7 @@ import Button from '../common/Button';
 
 const CTASection = () => {
     return (
-        <section className="relative py-24 px-4 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 text-center overflow-hidden">
+        <section className="relative py-24 px-4 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-950 dark:to-gray-900 text-center overflow-hidden">
             <div className="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-500 via-transparent to-transparent"></div>
 
             <motion.div

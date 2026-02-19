@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 
 const StorySignature = () => {
     return (
-        <section className="relative py-32 px-4 flex flex-col items-center text-center bg-gray-950 overflow-hidden">
+        <section className="relative py-32 px-4 flex flex-col items-center text-center bg-white dark:bg-gray-950 overflow-hidden">
             {/* Grid bg */}
-            <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
+            <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03] bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
 
             {/* Ambient glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none" />
@@ -26,7 +26,7 @@ const StorySignature = () => {
 
                 {/* Quote */}
                 <p
-                    className="text-2xl md:text-3xl text-gray-300 font-light italic leading-relaxed"
+                    className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 font-light italic leading-relaxed"
                     style={{ fontFamily: '"Dancing Script", cursive' }}
                 >
                     "I don't just create content — I create a feeling. Every post, every word, every moment is a piece of the universe I'm building."
@@ -40,7 +40,7 @@ const StorySignature = () => {
                     >
                         Dheerajj.x
                     </span>
-                    <span className="text-xs uppercase tracking-[0.35em] text-gray-600">
+                    <span className="text-xs uppercase tracking-[0.35em] text-gray-500 dark:text-gray-600">
                         Digital Creator · Lifestyle Curator
                     </span>
                 </div>
