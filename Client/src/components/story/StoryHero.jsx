@@ -97,7 +97,7 @@ const StoryHero = () => {
                 transition={{ delay: 1.2 }}
                 className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
             >
-                <span className="text-[10px] text-gray-600 uppercase tracking-[0.3em]">Scroll to read</span>
+                <span className="text-[10px] text-gray-600 uppercase tracking-[0.3em]"></span>
                 <div className="w-[1px] h-14 bg-gradient-to-b from-gray-600 to-transparent">
                     <motion.div
                         animate={{ y: [0, 56, 0], opacity: [0, 1, 0] }}

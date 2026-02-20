@@ -1,5 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import bg0 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.34.58.jpeg';
+import bg1 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.34.59 (1).jpeg';
+import bg2 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.34.59.jpeg';
+import bg3 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.09.jpeg';
+import bg4 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.10 (1).jpeg';
+import bg5 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.10 (2).jpeg';
+import bg6 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.10.jpeg';
+import bg7 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.11.jpeg';
+import bg8 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.12 (1).jpeg';
+import bg9 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.12.jpeg';
+import bg10 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.13.jpeg';
+import bg11 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.38.30 (1).jpeg';
+import bg12 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.38.30.jpeg';
+import bg13 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.39.jpeg';
+import bg14 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.40 (1).jpeg';
+import bg15 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.40 (2).jpeg';
+import bg16 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.40.jpeg';
+
+const storyBgs = [bg0, bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12, bg13, bg14, bg15, bg16];
 
 const accentPalette = [
     { gradient: 'from-pink-500 to-rose-600', glow: 'rgba(236,72,153,0.15)', chapter: 'text-pink-400', border: 'border-pink-500/30', num: 'from-pink-400 to-rose-500' },
@@ -14,6 +33,7 @@ const accentPalette = [
 const StorySection = ({ title, lines, index = 0 }) => {
     const a = accentPalette[index % accentPalette.length];
     const isEven = index % 2 === 0;
+    const bgImage = storyBgs[index % storyBgs.length];
 
     return (
         <motion.div
@@ -72,44 +92,57 @@ const StorySection = ({ title, lines, index = 0 }) => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.7, delay: 0.25 }}
-                        className={`relative rounded-2xl border ${a.border} overflow-hidden bg-white/90 dark:bg-[rgba(10,10,20,0.7)] backdrop-blur-sm`}>
+                        className={`relative rounded-2xl border ${a.border} overflow-hidden bg-white dark:bg-[#0a0a0f]`}
+                        style={{
+                            backgroundImage: `url(${bgImage})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                        }}
+                    >
+                        {/* Image overlay — keeps text readable */}
+                        <div className="absolute inset-0 bg-white/40 dark:bg-black/55 pointer-events-none" />
+
                         {/* Top gradient bar */}
-                        <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r ${a.gradient}`} />
+                        <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r ${a.gradient} z-10`} />
 
                         {/* Corner decoration */}
-                        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${a.gradient} opacity-5 rounded-bl-full`} />
-                        <div className={`absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr ${a.gradient} opacity-5 rounded-tr-full`} />
+                        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${a.gradient} opacity-10 rounded-bl-full`} />
+                        <div className={`absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr ${a.gradient} opacity-10 rounded-tr-full`} />
 
                         {/* Content lines */}
-                        <div className="p-8 md:p-10 space-y-3">
-                            {lines.map((line, i) =>
-                                line === '' ? (
-                                    <div key={i} className="h-4" />
-                                ) : line.split(' ').length <= 7 && line.length < 50 && !line.includes(',') ? (
-                                    <motion.p
-                                        key={`${index}-${i}`}
-                                        initial={{ opacity: 0, x: isEven ? -15 : 15 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: 0.1 + i * 0.03, duration: 0.5 }}
-                                        className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white italic leading-snug"
-                                        style={{ fontFamily: '"Dancing Script", cursive' }}
-                                    >
-                                        {line}
-                                    </motion.p>
-                                ) : (
-                                    <motion.p
-                                        key={`${index}-${i}`}
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: 0.1 + i * 0.025, duration: 0.6 }}
-                                        className="text-gray-700 dark:text-gray-300 text-base md:text-lg leading-relaxed"
-                                    >
-                                        {line}
-                                    </motion.p>
-                                )
-                            )}
+                        <div className="p-8 md:p-10 relative">
+                            {/* Text content sits above the overlay */}
+                            <div className="relative z-10 space-y-3">
+                                {lines.map((line, i) =>
+                                    line === '' ? (
+                                        <div key={i} className="h-4" />
+                                    ) : line.split(' ').length <= 7 && line.length < 50 && !line.includes(',') ? (
+                                        <motion.p
+                                            key={`${index}-${i}`}
+                                            initial={{ opacity: 0, x: isEven ? -15 : 15 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: 0.1 + i * 0.03, duration: 0.5 }}
+                                            className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white italic leading-snug"
+                                            style={{ fontFamily: '"Dancing Script", cursive' }}
+                                        >
+                                            {line}
+                                        </motion.p>
+                                    ) : (
+                                        <motion.p
+                                            key={`${index}-${i}`}
+                                            initial={{ opacity: 0 }}
+                                            whileInView={{ opacity: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: 0.1 + i * 0.025, duration: 0.6 }}
+                                            className="text-gray-700 dark:text-gray-300 text-base md:text-lg leading-relaxed"
+                                        >
+                                            {line}
+                                        </motion.p>
+                                    )
+                                )}
+                            </div>
                         </div>
                     </motion.div>
                 </div>

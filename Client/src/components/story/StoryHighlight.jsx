@@ -1,5 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import bg7 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.11.jpeg';
+import bg8 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.12 (1).jpeg';
+import bg9 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.12.jpeg';
+import bg10 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.13.jpeg';
+
+const cardBgs = [bg7, bg8, bg9, bg10];
 
 const highlights = [
     { icon: '🎯', label: 'Vision', value: 'Build experiences that matter', color: 'from-pink-500 to-rose-500', glow: 'hover:shadow-pink-500/20' },
@@ -25,13 +31,24 @@ const StoryHighlight = () => {
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.1, duration: 0.5 }}
                         whileHover={{ y: -6, scale: 1.04 }}
-                        className={`relative flex flex-col items-center text-center gap-4 p-7 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.03] backdrop-blur-md shadow-xl ${item.glow} hover:shadow-2xl transition-all duration-300 overflow-hidden`}
+                        className={`relative flex flex-col items-center text-center gap-4 p-7 rounded-2xl border border-gray-200 dark:border-white/5 shadow-xl ${item.glow} hover:shadow-2xl transition-all duration-300 overflow-hidden`}
+                        style={{
+                            backgroundImage: `url(${cardBgs[i % cardBgs.length]})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                        }}
                     >
+                        {/* Image overlay */}
+                        <div className="absolute inset-0 bg-white/50 dark:bg-black/60 pointer-events-none" />
+
                         {/* Top accent line */}
-                        <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r ${item.color}`} />
-                        <span className="text-4xl">{item.icon}</span>
-                        <span className={`text-xs uppercase tracking-widest font-bold bg-clip-text text-transparent bg-gradient-to-r ${item.color}`}>{item.label}</span>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 font-medium leading-snug">{item.value}</p>
+                        <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r ${item.color} z-10`} />
+
+                        {/* Content — sits above overlay */}
+                        <span className="relative z-10 text-4xl">{item.icon}</span>
+                        <span className={`relative z-10 text-xs uppercase tracking-widest font-bold bg-clip-text text-transparent bg-gradient-to-r ${item.color}`}>{item.label}</span>
+                        <p className="relative z-10 text-sm text-gray-700 dark:text-gray-300 font-medium leading-snug">{item.value}</p>
                     </motion.div>
                 ))}
             </motion.div>
@@ -40,4 +57,3 @@ const StoryHighlight = () => {
 };
 
 export default StoryHighlight;
-

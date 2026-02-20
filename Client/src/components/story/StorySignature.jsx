@@ -1,9 +1,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import signatureBg from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.38.30 (1).jpeg';
 
 const StorySignature = () => {
     return (
-        <section className="relative py-32 px-4 flex flex-col items-center text-center bg-white dark:bg-gray-950 overflow-hidden">
+        <section
+            className="relative py-32 px-4 flex flex-col items-center text-center overflow-hidden"
+            style={{
+                backgroundImage: `url(${signatureBg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+            }}
+        >
+            {/* Image overlay */}
+            <div className="absolute inset-0 bg-white/50 dark:bg-black/65 pointer-events-none" />
             {/* Grid bg */}
             <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03] bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
 
