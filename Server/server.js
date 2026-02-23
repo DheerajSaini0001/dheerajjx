@@ -32,6 +32,6 @@ app.use('/api/about', aboutRoutes);
 const { errorHandler } = require('./middleware/errorMiddleware');
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 201;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

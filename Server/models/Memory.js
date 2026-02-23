@@ -5,16 +5,25 @@ const memorySchema = mongoose.Schema({
         type: String,
         required: [true, 'Please add a title']
     },
-    description: {
+    location: {
         type: String,
-        required: [true, 'Please add a description']
-    },
-    image: {
-        type: String // URL from Cloudinary or local path
+        required: [true, 'Please add a location']
     },
     date: {
-        type: Date,
-        default: Date.now
+        type: String,
+        required: [true, 'Please add a date']
+    },
+    category: {
+        type: String,
+        required: [true, 'Please add a category']
+    },
+    quote: {
+        type: String,
+        required: [true, 'Please add a quote']
+    },
+    imageUrl: {
+        type: String,
+        required: [true, 'Please add an image url']
     }
 }, {
     timestamps: true

@@ -12,11 +12,11 @@ import Memories from '../pages/public/Memories';
 import Thoughts from '../pages/public/Thoughts';
 import Gallery from '../pages/public/Gallery';
 
-// Admin Pages
 import Login from '../pages/admin/Login';
 import Dashboard from '../pages/admin/Dashboard';
 import AddMemory from '../pages/admin/AddMemory';
 import ManageMemories from '../pages/admin/ManageMemories';
+import ManageThoughts from '../pages/admin/ManageThoughts';
 
 const AppRoutes = () => {
   return (
@@ -38,6 +38,7 @@ const AppRoutes = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="add-memory" element={<AddMemory />} />
           <Route path="manage-memories" element={<ManageMemories />} />
+          <Route path="thoughts" element={<ManageThoughts />} />
         </Route>
       </Route>
 
