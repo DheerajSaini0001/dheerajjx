@@ -6,6 +6,7 @@ import {
   Edit2,
   Trash2,
   ImageIcon,
+  Images,
   Calendar,
   X,
   UploadCloud,
@@ -20,11 +21,14 @@ const ManageMemories = () => {
   // For handling add/edit form
   const [formData, setFormData] = useState({ _id: '', title: '', location: '', date: '', category: '', quote: '', imageUrl: '' });
   const [imageFile, setImageFile] = useState(null); // The actual File object to upload
+  const [galleryFiles, setGalleryFiles] = useState([]); // Additional gallery images
+  const [galleryPreviews, setGalleryPreviews] = useState([]); // Preview URLs
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
 
   const fileInputRef = useRef(null);
+  const galleryInputRef = useRef(null);
   const token = localStorage.getItem('adminToken'); // Secure auth token
 
   // Fetch Memories from Backend API
@@ -60,10 +64,13 @@ const ManageMemories = () => {
     setIsEditing(!!memory);
     if (memory) {
       setFormData(memory);
+      setGalleryPreviews(memory.gallery || []);
     } else {
       setFormData({ _id: '', title: '', location: '', date: '', category: '', quote: '', imageUrl: '' });
+      setGalleryPreviews([]);
     }
     setImageFile(null);
+    setGalleryFiles([]);
     setIsModalOpen(true);
   };
 
@@ -91,6 +98,20 @@ const ManageMemories = () => {
     }
   };
 
+  const handleGalleryChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+      setGalleryFiles(prev => [...prev, ...files]);
+      const newPreviews = files.map(f => URL.createObjectURL(f));
+      setGalleryPreviews(prev => [...prev, ...newPreviews]);
+    }
+  };
+
+  const removeGalleryPreview = (index) => {
+    setGalleryPreviews(prev => prev.filter((_, i) => i !== index));
+    setGalleryFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -102,8 +123,12 @@ const ManageMemories = () => {
     uploadData.append('category', formData.category);
     uploadData.append('quote', formData.quote);
     if (imageFile) {
-      uploadData.append('image', imageFile); // Matched with 'upload.single("image")' route
+      uploadData.append('image', imageFile);
     }
+    // Append each gallery file
+    galleryFiles.forEach(file => {
+      uploadData.append('gallery', file);
+    });
 
     try {
       const url = isEditing
@@ -389,6 +414,70 @@ const ManageMemories = () => {
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Thematic Quote</label>
                   <textarea required name="quote" value={formData.quote} onChange={handleInputChange} rows={3} className="w-full px-4 py-3 bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 rounded-xl text-lg italic focus:ring-2 focus:ring-violet-500/50 outline-none text-gray-900 dark:text-white resize-none" style={{ fontFamily: '"Dancing Script", cursive' }} placeholder="Silenced by the scale of the mountains..." />
+                </div>
+
+                {/* Gallery Pathway Multi-Upload Section */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                      <Images size={14} />
+                      Photo Pathway
+                      <span className="font-normal text-gray-400 normal-case tracking-normal">(optional extra shots)</span>
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => galleryInputRef.current?.click()}
+                      className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline flex items-center gap-1"
+                    >
+                      <Plus size={12} /> Add Photos
+                    </button>
+                  </div>
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    ref={galleryInputRef}
+                    onChange={handleGalleryChange}
+                    className="hidden"
+                  />
+
+                  {galleryPreviews.length > 0 ? (
+                    <div className="grid grid-cols-4 gap-3">
+                      {galleryPreviews.map((src, idx) => (
+                        <div key={idx} className="relative group aspect-square rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5">
+                          <img src={src} alt={`gallery-${idx}`} className="w-full h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => removeGalleryPreview(idx)}
+                            className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+                          >
+                            <X size={12} />
+                          </button>
+                          <div className="absolute bottom-1 left-1 text-[9px] font-mono bg-black/50 text-white px-1 rounded">
+                            {idx + 1}
+                          </div>
+                        </div>
+                      ))}
+                      {/* Add more button */}
+                      <button
+                        type="button"
+                        onClick={() => galleryInputRef.current?.click()}
+                        className="aspect-square rounded-xl border-2 border-dashed border-gray-300 dark:border-white/20 flex flex-col items-center justify-center text-gray-400 hover:border-violet-500 hover:text-violet-500 transition-colors"
+                      >
+                        <Plus size={20} />
+                        <span className="text-[10px] font-bold mt-1">More</span>
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => galleryInputRef.current?.click()}
+                      className="w-full h-24 rounded-2xl border-2 border-dashed border-gray-300 dark:border-white/20 flex flex-col items-center justify-center text-gray-400 hover:border-violet-500 hover:text-violet-500 transition-colors cursor-pointer gap-2"
+                    >
+                      <Images size={22} />
+                      <span className="text-xs font-semibold">Add extra shots to the pathway</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="pt-4 flex gap-3">
