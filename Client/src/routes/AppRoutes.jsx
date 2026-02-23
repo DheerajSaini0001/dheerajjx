@@ -9,6 +9,7 @@ import AdminLayout from '../components/layout/AdminLayout';
 import Home from '../pages/public/Home';
 import About from '../pages/public/About';
 import Memories from '../pages/public/Memories';
+import MemoryDetail from '../pages/public/MemoryDetail';
 import Thoughts from '../pages/public/Thoughts';
 import Gallery from '../pages/public/Gallery';
 
@@ -27,6 +28,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/memories" element={<Memories />} />
+        <Route path="/memories/:id" element={<MemoryDetail />} />
         <Route path="/thoughts" element={<Thoughts />} />
         <Route path="/gallery" element={<Gallery />} />
       </Route>

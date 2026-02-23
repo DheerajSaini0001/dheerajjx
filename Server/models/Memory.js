@@ -24,6 +24,10 @@ const memorySchema = mongoose.Schema({
     imageUrl: {
         type: String,
         required: [true, 'Please add an image url']
+    },
+    gallery: {
+        type: [String],
+        default: []
     }
 }, {
     timestamps: true

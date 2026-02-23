@@ -74,91 +74,7 @@ const MemoryCard = ({ memory, index, onClick }) => {
   );
 };
 
-// Modal Component for Image Lightbox
-const ImageModal = ({ memory, onClose }) => {
-  if (!memory) return null;
 
-  return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-12 bg-black/90 backdrop-blur-xl"
-        onClick={onClose}
-      >
-        {/* Close Button */}
-        <motion.button
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          transition={{ delay: 0.2 }}
-          className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white backdrop-blur-md z-[110] transition-colors"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </motion.button>
-
-        {/* Modal Content */}
-        <div
-          className="relative w-full max-w-6xl max-h-full flex flex-col md:flex-row items-center gap-6 md:gap-10 outline-none"
-          onClick={(e) => e.stopPropagation()} // Prevent clicks on content from closing modal
-        >
-          {/* The Image (uses layoutId to pop out of the grid seamlessly) */}
-          <motion.div
-            layoutId={`card-${memory._id}`}
-            className="relative w-full md:w-2/3 h-[50vh] md:h-[80vh] rounded-2xl md:rounded-3xl overflow-hidden bg-black shadow-2xl shadow-pink-500/10 border border-white/10"
-          >
-            <motion.img
-              layoutId={`image-${memory._id}`}
-              src={memory.imageUrl}
-              alt={memory.title}
-              className="w-full h-full object-contain md:object-cover"
-            />
-          </motion.div>
-
-          {/* Meta Sidebar */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="w-full md:w-1/3 text-left space-y-6"
-          >
-            <div className="flex items-center gap-3">
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-pink-400 text-xs font-bold uppercase tracking-widest">
-                {memory.date}
-              </div>
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-300 text-xs font-bold uppercase tracking-widest">
-                {memory.category}
-              </div>
-            </div>
-
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight capitalize">
-              {memory.title}
-            </h2>
-
-            <div className="h-[1px] w-20 bg-gradient-to-r from-pink-500 to-transparent" />
-
-            <p
-              className="text-gray-300 text-2xl md:text-3xl font-medium italic"
-              style={{ fontFamily: '"Dancing Script", cursive' }}
-            >
-              "{memory.quote}"
-            </p>
-
-            <div className="flex flex-col gap-1 pt-4 text-gray-400 text-sm">
-              <span className="uppercase tracking-widest font-bold text-xs text-white/30">Location</span>
-              <span className="font-semibold text-white/70 capitalize">{memory.location}</span>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
-    </AnimatePresence>
-  );
-};
 
 const Memories = () => {
   const { scrollYProgress } = useScroll();
@@ -286,7 +202,7 @@ const Memories = () => {
                 key={memory._id}
                 memory={memory}
                 index={index}
-                onClick={() => setSelectedMemory(memory)}
+                onClick={() => window.location.assign(`/memories/${memory._id}`)}
               />
             ))}
           </div>
@@ -313,15 +229,6 @@ const Memories = () => {
         )}
       </div>
 
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {selectedMemory && (
-          <ImageModal
-            memory={selectedMemory}
-            onClose={() => setSelectedMemory(null)}
-          />
-        )}
-      </AnimatePresence>
     </div>
   );
 };
