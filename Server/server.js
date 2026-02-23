@@ -8,6 +8,7 @@ const authRoutes = require('./routes/authRoutes');
 const memoryRoutes = require('./routes/memoryRoutes');
 const thoughtRoutes = require('./routes/thoughtRoutes');
 const aboutRoutes = require('./routes/aboutRoutes');
+const galleryRoutes = require('./routes/galleryRoutes');
 
 // Load env vars
 dotenv.config();
@@ -27,6 +28,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/memories', memoryRoutes);
 app.use('/api/thoughts', thoughtRoutes);
 app.use('/api/about', aboutRoutes);
+app.use('/api/gallery', galleryRoutes);
 
 // Error Middleware
 const { errorHandler } = require('./middleware/errorMiddleware');

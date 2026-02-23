@@ -17,6 +17,7 @@ import Dashboard from '../pages/admin/Dashboard';
 import AddMemory from '../pages/admin/AddMemory';
 import ManageMemories from '../pages/admin/ManageMemories';
 import ManageThoughts from '../pages/admin/ManageThoughts';
+import ManageGallery from '../pages/admin/ManageGallery';
 
 const AppRoutes = () => {
   return (
@@ -39,6 +40,7 @@ const AppRoutes = () => {
           <Route path="add-memory" element={<AddMemory />} />
           <Route path="manage-memories" element={<ManageMemories />} />
           <Route path="thoughts" element={<ManageThoughts />} />
+          <Route path="gallery" element={<ManageGallery />} />
         </Route>
       </Route>
 

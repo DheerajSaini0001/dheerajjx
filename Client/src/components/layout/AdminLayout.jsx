@@ -36,6 +36,7 @@ const AdminLayout = () => {
     { path: '/admin/dashboard', label: 'Overview', icon: LayoutDashboard },
     { path: '/admin/manage-memories', label: 'Memories', icon: ImageIcon },
     { path: '/admin/thoughts', label: 'Thoughts', icon: BookOpen },
+    { path: '/admin/gallery', label: 'Gallery', icon: ImageIcon },
     { path: '/admin/story', label: 'My Story', icon: BookText },
   ];
 
@@ -64,8 +65,8 @@ const AdminLayout = () => {
               to={item.path}
               onClick={() => setMobileMenuOpen(false)}
               className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-xl font-semibold transition-all group relative overflow-hidden ${isActive
-                  ? 'text-white'
-                  : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5'
+                ? 'text-white'
+                : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5'
                 }`}
             >
               {isActive && (

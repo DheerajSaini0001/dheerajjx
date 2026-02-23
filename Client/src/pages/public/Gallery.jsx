@@ -1,53 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-
-// Import images
-import img0 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.34.58.jpeg';
-import img1 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.34.59 (1).jpeg';
-import img2 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.34.59.jpeg';
-import img3 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.09.jpeg';
-import img4 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.10 (1).jpeg';
-import img5 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.10 (2).jpeg';
-import img6 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.10.jpeg';
-import img7 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.11.jpeg';
-import img8 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.12 (1).jpeg';
-import img9 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.12.jpeg';
-import img10 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.36.13.jpeg';
-import img11 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.38.30 (1).jpeg';
-import img12 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.38.30.jpeg';
-import img13 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.39.jpeg';
-import img14 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.40 (1).jpeg';
-import img15 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.40 (2).jpeg';
-import img16 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.40.jpeg';
-
-const allImages = [img0, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14, img15, img16];
-
-// Assign mock data and sophisticated "Bento Grid" sizing
-const galleryData = allImages.map((src, index) => {
-  // Generate editorial categories
-  const categories = ['All', 'Editorial', 'Raw', 'Studio', 'Cinematic'];
-  const category = categories[(index % 4) + 1];
-
-  // Bento grid classes - some tall, some wide, some large, mostly squares
-  let gridClass = "col-span-1 row-span-1 aspect-square";
-  let isTall = false;
-
-  if (index === 0) gridClass = "col-span-2 row-span-2 aspect-square md:aspect-auto"; // Hero
-  else if (index === 3 || index === 8) { gridClass = "col-span-1 row-span-2 aspect-[1/2]"; isTall = true; } // Tall
-  else if (index === 5 || index === 13) gridClass = "col-span-2 row-span-1 aspect-[2/1]"; // Wide
-
-  return {
-    id: index,
-    src,
-    category,
-    gridClass,
-    isTall,
-    title: `Frame ${String(index + 1).padStart(3, '0')}`,
-    iso: `ISO ${[100, 200, 400, 800, 1600][index % 5]}`,
-    shutter: `1/${[125, 250, 500, 1000][index % 4]}s`,
-    aperture: `f/${['1.4', '1.8', '2.8', '4.0'][index % 4]}`,
-  };
-});
+import { Loader2 } from 'lucide-react';
 
 // Advanced Full-Screen Carousel
 const CarouselModal = ({ images, initialIndex, onClose }) => {
@@ -68,13 +21,13 @@ const CarouselModal = ({ images, initialIndex, onClose }) => {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowRight') handleNext(e);
       if (e.key === 'ArrowLeft') handlePrev(e);
-      if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [currentIndex, onClose]);
 
   const currentImage = images[currentIndex];
 
@@ -83,6 +36,8 @@ const CarouselModal = ({ images, initialIndex, onClose }) => {
     center: { zIndex: 1, x: 0, opacity: 1, scale: 1, filter: 'blur(0px)' },
     exit: (direction) => ({ zIndex: 0, x: direction < 0 ? 1000 : -1000, opacity: 0, scale: 1.1, filter: 'blur(10px)' })
   };
+
+  if (!currentImage) return null;
 
   return (
     <motion.div
@@ -99,8 +54,9 @@ const CarouselModal = ({ images, initialIndex, onClose }) => {
 
       {/* Top Bar Navigation */}
       <div className="absolute top-0 inset-x-0 px-6 py-8 flex justify-between items-center z-[120]" onClick={e => e.stopPropagation()}>
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center">
           <span className="text-white/50 font-mono tracking-widest text-xs uppercase border border-white/20 px-3 py-1 rounded-full">{currentImage.title}</span>
+          <span className="text-white/30 font-mono tracking-widest text-[10px] uppercase">{currentImage.category}</span>
         </div>
 
         <button
@@ -120,7 +76,7 @@ const CarouselModal = ({ images, initialIndex, onClose }) => {
         <AnimatePresence custom={direction} mode="popLayout">
           <motion.img
             key={currentIndex}
-            src={currentImage.src}
+            src={currentImage.imageUrl}
             custom={direction}
             variants={variants}
             initial="enter"
@@ -139,32 +95,33 @@ const CarouselModal = ({ images, initialIndex, onClose }) => {
         {/* Left/Right Arrows */}
         <button
           onClick={handlePrev}
-          className="absolute left-4 md:left-10 w-16 h-16 rounded-full bg-black/50 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white backdrop-blur-md z-[120] transition-all hover:scale-110 group"
+          className="absolute left-4 md:left-10 z-[120] w-14 h-14 rounded-full bg-black/50 hover:bg-white/10 backdrop-blur border border-white/10 flex items-center justify-center text-white/50 hover:text-white transition-all transform hover:scale-110"
         >
-          <svg className="transform group-hover:-translate-x-1 transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
+
         <button
           onClick={handleNext}
-          className="absolute right-4 md:right-10 w-16 h-16 rounded-full bg-black/50 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white backdrop-blur-md z-[120] transition-all hover:scale-110 group"
+          className="absolute right-4 md:right-10 z-[120] w-14 h-14 rounded-full bg-black/50 hover:bg-white/10 backdrop-blur border border-white/10 flex items-center justify-center text-white/50 hover:text-white transition-all transform hover:scale-110"
         >
-          <svg className="transform group-hover:translate-x-1 transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
       </div>
 
       {/* Camera Metadata Bar */}
-      <div
-        className="absolute bottom-8 inset-x-0 flex flex-col md:flex-row items-center justify-center gap-4 text-white z-[120]"
-        onClick={e => e.stopPropagation()}
-      >
-        <div className="flex gap-3 text-xs font-mono tracking-widest opacity-60">
-          <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg">{currentImage.iso}</span>
-          <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg">{currentImage.aperture}</span>
-          <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg">{currentImage.shutter}</span>
+      <div className="absolute bottom-8 z-[120] px-8 py-3 bg-black/40 backdrop-blur-xl rounded-full border border-white/10 hidden md:flex gap-8 divide-x divide-white/10">
+        <div className="flex flex-col items-center pl-0">
+          <span className="text-[10px] text-white/30 tracking-[0.2em] font-mono leading-none mb-1">ISO</span>
+          <span className="text-white text-xs font-mono tracking-widest leading-none">{currentImage.iso}</span>
         </div>
-        <div className="hidden md:block w-12 h-[1px] bg-white/20" />
-        <span className="font-semibold tracking-[0.3em] uppercase text-sm bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-violet-400">
-          {currentImage.category}
-        </span>
+        <div className="flex flex-col items-center pl-8">
+          <span className="text-[10px] text-white/30 tracking-[0.2em] font-mono leading-none mb-1">SHUTTER</span>
+          <span className="text-white text-xs font-mono tracking-widest leading-none">{currentImage.shutter}</span>
+        </div>
+        <div className="flex flex-col items-center pl-8">
+          <span className="text-[10px] text-white/30 tracking-[0.2em] font-mono leading-none mb-1">APERTURE</span>
+          <span className="text-white text-xs font-mono tracking-widest leading-none">{currentImage.aperture}</span>
+        </div>
       </div>
 
       {/* Progress indicator */}
@@ -177,7 +134,38 @@ const Gallery = () => {
   const { scrollYProgress } = useScroll();
   const yTransform = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
-  const categories = ['All', 'Editorial', 'Raw', 'Studio', 'Cinematic'];
+  const [galleryData, setGalleryData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const res = await fetch('http://localhost:201/api/gallery');
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          // Apply dynamic Bento Grid classes upon fetching layout
+          const styledData = data.map((img, index) => {
+            let gridClass = "col-span-1 row-span-1 aspect-square";
+            let isTall = false;
+
+            if (index === 0) gridClass = "col-span-2 row-span-2 aspect-square md:aspect-auto";
+            else if (index === 3 || index === 8) { gridClass = "col-span-1 row-span-2 aspect-[1/2]"; isTall = true; }
+            else if (index === 5 || index === 13) gridClass = "col-span-2 row-span-1 aspect-[2/1]";
+
+            return { ...img, gridClass, isTall };
+          });
+          setGalleryData(styledData);
+        }
+      } catch (error) {
+        console.error("Failed to load gallery:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchGallery();
+  }, []);
+
+  const categories = ['All', ...new Set(galleryData.map(img => img.category))];
   const [activeCategory, setActiveCategory] = useState('All');
   const [modalIndex, setModalIndex] = useState(null);
 
@@ -218,7 +206,7 @@ const Gallery = () => {
         {/* Editorial Header */}
         <motion.header
           style={{ y: yTransform }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 md:mb-32 mt-10 md:mt-20 border-b border-white/10 pb-10"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 md:mb-32 mt-10 md:mt-20 border-b border-gray-200 dark:border-white/10 pb-10"
         >
           <div className="space-y-4">
             <motion.div
@@ -260,8 +248,8 @@ const Gallery = () => {
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={`px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${activeCategory === cat
-                ? 'bg-gray-900 text-white dark:bg-white dark:text-black shadow-[0_0_20px_rgba(0,0,0,0.15)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105'
-                : 'bg-transparent text-gray-500 border border-gray-300 dark:border-white/10 hover:text-gray-900 dark:hover:text-white hover:border-gray-500 dark:hover:border-white/30 hover:bg-gray-100 dark:hover:bg-white/5'
+                  ? 'bg-gray-900 text-white dark:bg-white dark:text-black shadow-[0_0_20px_rgba(0,0,0,0.15)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105'
+                  : 'bg-transparent text-gray-500 border border-gray-300 dark:border-white/10 hover:text-gray-900 dark:hover:text-white hover:border-gray-500 dark:hover:border-white/30 hover:bg-gray-100 dark:hover:bg-white/5'
                 }`}
             >
               {cat}
@@ -269,61 +257,66 @@ const Gallery = () => {
           ))}
         </div>
 
-        {/* Advanced Bento/Masonry Grid */}
-        <motion.div layout className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 auto-rows-[minmax(180px,auto)]">
-          <AnimatePresence mode="popLayout">
-            {filteredImages.map((img) => (
-              <motion.div
-                layout
-                variants={filterVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ duration: 0.5, type: 'spring', damping: 25 }}
-                key={img.id}
-                onClick={() => setModalIndex(galleryData.findIndex(item => item.id === img.id))}
-                className={`group relative cursor-pointer overflow-hidden rounded-xl md:rounded-2xl bg-gray-200 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/5 hover:border-gray-400 dark:hover:border-white/20 transition-colors ${img.gridClass}`}
-              >
-                {/* Stunning B&W to Color Hover Effect */}
-                <img
-                  src={img.src}
-                  alt={img.title}
-                  className={`w-full h-full ${img.isTall ? 'object-cover md:object-[center_20%]' : 'object-cover'} 
-                                        filter grayscale-[100%] contrast-125 brightness-75 
-                                        group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 
-                                        transform group-hover:scale-105 transition-all duration-[800ms] ease-[cubic-bezier(0.2,0.8,0.2,1)]`}
-                  loading="lazy"
-                />
+        {/* Loading Spinner */}
+        {isLoading ? (
+          <div className="flex justify-center items-center py-40">
+            <Loader2 className="animate-spin text-pink-500" size={40} />
+          </div>
+        ) : (
+          <motion.div layout className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 auto-rows-[minmax(180px,auto)]">
+            <AnimatePresence mode="popLayout">
+              {filteredImages.map((img) => (
+                <motion.div
+                  layout
+                  variants={filterVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  transition={{ duration: 0.5, type: 'spring', damping: 25 }}
+                  key={img._id}
+                  onClick={() => setModalIndex(galleryData.findIndex(item => item._id === img._id))}
+                  className={`group relative cursor-pointer overflow-hidden rounded-xl md:rounded-2xl bg-gray-200 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/5 hover:border-gray-400 dark:hover:border-white/20 transition-colors ${img.gridClass}`}
+                >
+                  {/* Stunning B&W to Color Hover Effect */}
+                  <img
+                    src={img.imageUrl}
+                    alt={img.title}
+                    className={`w-full h-full object-cover filter grayscale-[100%] contrast-125 brightness-75 
+                                group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 
+                                transform group-hover:scale-105 transition-all duration-[800ms] ease-[cubic-bezier(0.2,0.8,0.2,1)]`}
+                    loading="lazy"
+                  />
 
-                {/* Internal Grid Lines (Scanner effect on hover) */}
-                <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] opacity-0 group-hover:opacity-10 pointer-events-none mix-blend-overlay" />
+                  {/* Internal Grid Lines (Scanner effect on hover) */}
+                  <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] opacity-0 group-hover:opacity-10 pointer-events-none mix-blend-overlay" />
 
-                {/* Typography overlays */}
-                <div className="absolute top-4 left-4 md:top-6 md:left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-4 group-hover:translate-x-0">
-                  <div className="text-white text-sm md:text-lg font-black tracking-widest uppercase shadow-black drop-shadow-lg">
-                    {img.title}
+                  {/* Typography overlays */}
+                  <div className="absolute top-4 left-4 md:top-6 md:left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-4 group-hover:translate-x-0">
+                    <div className="text-white text-sm md:text-lg font-black tracking-widest uppercase shadow-black drop-shadow-lg">
+                      {img.title}
+                    </div>
+                    <div className="text-pink-400 text-[10px] md:text-xs font-mono tracking-[0.2em] uppercase mt-1">
+                      {img.category}
+                    </div>
                   </div>
-                  <div className="text-pink-400 text-[10px] md:text-xs font-mono tracking-[0.2em] uppercase mt-1">
-                    {img.category}
+
+                  <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 transform translate-y-4 group-hover:translate-y-0 text-right">
+                    <div className="w-10 h-10 rounded-full backdrop-blur-md bg-white/10 border border-white/20 flex items-center justify-center text-white shadow-xl ml-auto mb-3 hover:bg-white hover:text-black transition-colors">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+                    </div>
                   </div>
-                </div>
 
-                <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 transform translate-y-4 group-hover:translate-y-0 text-right">
-                  <div className="w-10 h-10 rounded-full backdrop-blur-md bg-white/10 border border-white/20 flex items-center justify-center text-white shadow-xl ml-auto mb-3 hover:bg-white hover:text-black transition-colors">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+                  {/* Persistent subtle corner tag */}
+                  <div className="absolute bottom-4 left-4 text-[9px] font-mono tracking-widest text-white/40 uppercase group-hover:opacity-0 transition-opacity">
+                    Vol. 01 / {img.shutter}
                   </div>
-                </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
-                {/* Persistent subtle corner tag */}
-                <div className="absolute bottom-4 left-4 text-[9px] font-mono tracking-widest text-white/40 uppercase group-hover:opacity-0 transition-opacity">
-                  Vol. 01 / {String(img.id + 1).padStart(2, '0')}
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {filteredImages.length === 0 && (
+        {!isLoading && filteredImages.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             className="text-center py-40 uppercase tracking-[0.3em] text-gray-500 dark:text-white/30 font-bold"
