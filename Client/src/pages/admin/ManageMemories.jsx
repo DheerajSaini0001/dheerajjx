@@ -351,6 +351,7 @@ const ManageMemories = () => {
                 <div className="col-span-full">
                   <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">Cover Visual</label>
 
+                  {/* Hidden cover picker */}
                   <input
                     type="file"
                     accept="image/*"
@@ -359,23 +360,59 @@ const ManageMemories = () => {
                     className="hidden"
                   />
 
+                  {/* Hidden multi-gallery picker — moved here so it lives with cover, triggered via button inside preview */}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    ref={galleryInputRef}
+                    onChange={handleGalleryChange}
+                    className="hidden"
+                  />
+
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className="w-full h-48 rounded-2xl border-2 border-dashed border-gray-300 dark:border-white/20 flex flex-col items-center justify-center bg-gray-50 dark:bg-white/5 text-gray-400 group hover:border-violet-500 hover:bg-violet-500/5 transition-all cursor-pointer overflow-hidden relative"
+                    className="w-full h-52 rounded-2xl border-2 border-dashed border-gray-300 dark:border-white/20 flex flex-col items-center justify-center bg-gray-50 dark:bg-white/5 text-gray-400 group hover:border-violet-500 hover:bg-violet-500/5 transition-all cursor-pointer overflow-hidden relative"
                   >
                     {formData.imageUrl ? (
                       <>
-                        <img src={formData.imageUrl} className="w-full h-full object-cover opacity-80 group-hover:opacity-40 transition-opacity" />
-                        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <UploadCloud size={30} className="text-white drop-shadow-lg mb-2" />
-                          <span className="text-sm font-semibold text-white drop-shadow-lg">Change Image</span>
+                        {/* Cover image */}
+                        <img src={formData.imageUrl} className="w-full h-full object-cover transition-all duration-500" />
+
+                        {/* Gradient tint */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+
+                        {/* Hover overlay — change cover */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center pointer-events-none">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center">
+                            <UploadCloud size={26} className="text-white drop-shadow-lg mb-1" />
+                            <span className="text-[11px] font-bold text-white drop-shadow-lg tracking-widest uppercase">Change Cover</span>
+                          </div>
                         </div>
+
+                        {/* Gallery count badge — top right */}
+                        {galleryPreviews.length > 0 && (
+                          <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-violet-600/90 backdrop-blur border border-violet-400/30 text-white text-[10px] font-bold tracking-widest flex items-center gap-1.5 pointer-events-none z-10">
+                            <Images size={11} />
+                            {galleryPreviews.length} photo{galleryPreviews.length > 1 ? 's' : ''} added
+                          </div>
+                        )}
+
+                        {/* Add Gallery Photos button — bottom left, stops propagation so it won't trigger cover change */}
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); galleryInputRef.current?.click(); }}
+                          className="absolute bottom-3 left-3 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 hover:bg-violet-600 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider transition-all duration-300 z-10 shadow-lg"
+                        >
+                          <Plus size={13} />
+                          Add Gallery Photos
+                        </button>
                       </>
                     ) : (
                       <>
                         <UploadCloud size={32} className="mb-3 group-hover:scale-110 group-hover:text-violet-500 transition-all" />
-                        <span className="text-sm font-semibold group-hover:text-violet-500">Click to Browse Uploads</span>
-                        <span className="text-xs text-gray-400 dark:text-gray-500 font-medium mt-1">Supports JPG, PNG (Max 5MB)</span>
+                        <span className="text-sm font-semibold group-hover:text-violet-500">Click to upload Cover Image</span>
+                        <span className="text-xs text-gray-400 dark:text-gray-500 font-medium mt-1">Then add gallery photos from within the preview</span>
                       </>
                     )}
                   </div>
@@ -416,69 +453,66 @@ const ManageMemories = () => {
                   <textarea required name="quote" value={formData.quote} onChange={handleInputChange} rows={3} className="w-full px-4 py-3 bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 rounded-xl text-lg italic focus:ring-2 focus:ring-violet-500/50 outline-none text-gray-900 dark:text-white resize-none" style={{ fontFamily: '"Dancing Script", cursive' }} placeholder="Silenced by the scale of the mountains..." />
                 </div>
 
-                {/* Gallery Pathway Multi-Upload Section */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                      <Images size={14} />
-                      Photo Pathway
-                      <span className="font-normal text-gray-400 normal-case tracking-normal">(optional extra shots)</span>
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() => galleryInputRef.current?.click()}
-                      className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline flex items-center gap-1"
-                    >
-                      <Plus size={12} /> Add Photos
-                    </button>
-                  </div>
-
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    ref={galleryInputRef}
-                    onChange={handleGalleryChange}
-                    className="hidden"
-                  />
-
-                  {galleryPreviews.length > 0 ? (
-                    <div className="grid grid-cols-4 gap-3">
-                      {galleryPreviews.map((src, idx) => (
-                        <div key={idx} className="relative group aspect-square rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5">
-                          <img src={src} alt={`gallery-${idx}`} className="w-full h-full object-cover" />
-                          <button
-                            type="button"
-                            onClick={() => removeGalleryPreview(idx)}
-                            className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
-                          >
-                            <X size={12} />
-                          </button>
-                          <div className="absolute bottom-1 left-1 text-[9px] font-mono bg-black/50 text-white px-1 rounded">
-                            {idx + 1}
-                          </div>
-                        </div>
-                      ))}
-                      {/* Add more button */}
+                {/* Gallery photos grid — shows only when photos are added via the cover preview button */}
+                {galleryPreviews.length > 0 && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                        <Images size={14} />
+                        Gallery Photos
+                        <span className="font-normal text-gray-400 normal-case tracking-normal">({galleryPreviews.length} selected)</span>
+                      </label>
                       <button
                         type="button"
                         onClick={() => galleryInputRef.current?.click()}
-                        className="aspect-square rounded-xl border-2 border-dashed border-gray-300 dark:border-white/20 flex flex-col items-center justify-center text-gray-400 hover:border-violet-500 hover:text-violet-500 transition-colors"
+                        className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline flex items-center gap-1"
                       >
-                        <Plus size={20} />
-                        <span className="text-[10px] font-bold mt-1">More</span>
+                        <Plus size={12} /> Add More
                       </button>
                     </div>
-                  ) : (
-                    <div
-                      onClick={() => galleryInputRef.current?.click()}
-                      className="w-full h-24 rounded-2xl border-2 border-dashed border-gray-300 dark:border-white/20 flex flex-col items-center justify-center text-gray-400 hover:border-violet-500 hover:text-violet-500 transition-colors cursor-pointer gap-2"
-                    >
-                      <Images size={22} />
-                      <span className="text-xs font-semibold">Add extra shots to the pathway</span>
+
+                    <div className="grid grid-cols-4 sm:grid-cols-5 gap-2.5">
+                      {galleryPreviews.map((src, idx) => (
+                        <div key={idx} className="relative group aspect-square rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5 shadow-sm">
+                          <img src={src} alt={`gallery-${idx}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                          {/* Remove button */}
+                          <button
+                            type="button"
+                            onClick={() => removeGalleryPreview(idx)}
+                            className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 z-10"
+                          >
+                            <X size={10} />
+                          </button>
+                          {/* Frame number */}
+                          <div className="absolute bottom-1 left-1 text-[8px] font-mono bg-black/50 text-white px-1 py-0.5 rounded">
+                            {String(idx + 1).padStart(2, '0')}
+                          </div>
+                          {/* Hover gradient */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                        </div>
+                      ))}
+                      {/* Add more cell */}
+                      <button
+                        type="button"
+                        onClick={() => galleryInputRef.current?.click()}
+                        className="aspect-square rounded-xl border-2 border-dashed border-gray-300 dark:border-white/20 flex flex-col items-center justify-center text-gray-400 hover:border-violet-500 hover:text-violet-500 transition-all duration-300 hover:bg-violet-500/5"
+                      >
+                        <Plus size={18} />
+                        <span className="text-[9px] font-bold mt-1 uppercase tracking-wider">More</span>
+                      </button>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
+
+                {/* Hint when cover is set but no gallery added yet */}
+                {formData.imageUrl && galleryPreviews.length === 0 && (
+                  <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-violet-500/5 border border-violet-500/20 text-violet-600 dark:text-violet-400">
+                    <Images size={16} className="shrink-0" />
+                    <p className="text-xs font-medium">
+                      Tap <span className="font-bold">"Add Gallery Photos"</span> on your cover image above to include multiple pictures inside this memory.
+                    </p>
+                  </div>
+                )}
 
                 <div className="pt-4 flex gap-3">
                   <button

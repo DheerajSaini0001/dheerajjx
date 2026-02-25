@@ -2,22 +2,22 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import signatureBg from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.38.30 (1).jpeg';
 
-const StorySignature = () => {
+const DEFAULT_QUOTE = "I don't just create content — I create a feeling. Every post, every word, every moment is a piece of the universe I'm building.";
+const DEFAULT_TAGS = ['Still Building', 'Still Rising', 'Still Becoming'];
+
+const StorySignature = ({
+    quote = DEFAULT_QUOTE,
+    tags = DEFAULT_TAGS,
+}) => {
     return (
         <section
             className="relative py-32 px-4 flex flex-col items-center text-center overflow-hidden"
-            style={{
-                backgroundImage: `url(${signatureBg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-            }}
+            style={{ backgroundImage: `url(${signatureBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
         >
             {/* Image overlay */}
             <div className="absolute inset-0 bg-white/50 dark:bg-black/65 pointer-events-none" />
             {/* Grid bg */}
             <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03] bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
-
             {/* Ambient glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none" />
 
@@ -35,12 +35,12 @@ const StorySignature = () => {
                     <div className="h-[1px] w-20 bg-gradient-to-l from-transparent to-pink-500 opacity-60" />
                 </div>
 
-                {/* Quote */}
+                {/* Quote — from API or fallback */}
                 <p
                     className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 font-light italic leading-relaxed"
                     style={{ fontFamily: '"Dancing Script", cursive' }}
                 >
-                    "I don't just create content — I create a feeling. Every post, every word, every moment is a piece of the universe I'm building."
+                    "{quote}"
                 </p>
 
                 {/* Signature block */}
@@ -56,9 +56,9 @@ const StorySignature = () => {
                     </span>
                 </div>
 
-                {/* Tags */}
+                {/* Tags — from API or fallback */}
                 <div className="flex flex-wrap justify-center gap-3 pt-4">
-                    {['Still Building', 'Still Rising', 'Still Becoming'].map((tag, i) => (
+                    {tags.map((tag, i) => (
                         <motion.span
                             key={i}
                             initial={{ opacity: 0, y: 10 }}

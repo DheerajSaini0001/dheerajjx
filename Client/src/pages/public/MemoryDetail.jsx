@@ -196,174 +196,261 @@ const MemoryDetail = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </motion.div>
 
-                {/* ─── PHOTO PATHWAY ────────────────────────────────────── */}
+                {/* ─── TITLE + QUOTE + DESCRIPTION ────────────────────── */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15, duration: 0.8 }}
+                    className="mb-12"
+                >
+                    <h1 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white capitalize leading-[1.1] tracking-tight mb-6">
+                        {memory.title}
+                    </h1>
+
+                    <p className="text-3xl md:text-4xl leading-relaxed text-pink-600 drop-shadow-sm dark:text-pink-300/90 font-medium italic mb-10" style={{ fontFamily: '"Dancing Script", cursive' }}>
+                        "{memory.quote}"
+                    </p>
+
+                    <div className="prose prose-lg dark:prose-invert prose-gray max-w-none prose-p:leading-loose prose-p:text-gray-600 dark:prose-p:text-gray-400 font-light">
+                        <p>
+                            The moment captured above holds a specific timestamp within the grander narrative of life.
+                            Recorded in <span className="capitalize font-bold text-gray-700 dark:text-white">{memory.location}</span> during {memory.date}.
+                            Space, light, and composition intersect permanently.
+                        </p>
+                        <p>
+                            This digital archive ensures that as time passes, the precise aesthetic feeling
+                            and core philosophy behind this single captured second will perpetually echo
+                            precisely as it felt originally.
+                        </p>
+                    </div>
+                </motion.div>
+
+                {/* ─── PHOTO PATHWAY ─────────────────────────────────── */}
                 {hasGallery && (
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.7 }}
-                        className="mb-16"
+                        className="mb-20"
                     >
-                        {/* Section header */}
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="h-[1px] w-8 bg-gradient-to-r from-pink-500 to-transparent" />
-                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500">Photo Pathway</span>
-                            <div className="h-[1px] flex-1 bg-gradient-to-r from-gray-300 dark:from-white/10 to-transparent" />
-                        </div>
-
-                        {/* Horizontal scrolling film strip */}
-                        <div className="relative">
-                            <div className="flex gap-4 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-white/10">
-                                {memory.gallery.map((src, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        initial={{ opacity: 0, x: 40 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.1 * idx, duration: 0.5 }}
-                                        onClick={() => setLightboxIndex(idx + 1)}
-                                        className="relative shrink-0 snap-start w-64 md:w-80 aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200 dark:bg-[#111] border border-gray-300 dark:border-white/10 group cursor-zoom-in shadow-lg hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-500"
-                                    >
-                                        <img
-                                            src={src}
-                                            alt={`pathway-${idx + 1}`}
-                                            className="w-full h-full object-cover filter grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                                            loading="lazy"
-                                        />
-                                        {/* Hover overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-                                        {/* Frame number */}
-                                        <div className="absolute bottom-3 left-3 text-[10px] font-mono tracking-widest text-white/70 group-hover:text-white transition-colors">
-                                            {String(idx + 1).padStart(2, '0')} / {String(memory.gallery.length).padStart(2, '0')}
-                                        </div>
-                                        {/* Expand icon */}
-                                        <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity scale-50 group-hover:scale-100 duration-300">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
-                                        </div>
-
-                                        {/* Connecting line between cards (not last) */}
-                                        {idx < memory.gallery.length - 1 && (
-                                            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full w-4 h-[2px] bg-gradient-to-r from-gray-400 dark:from-white/20 to-transparent z-10" />
-                                        )}
-                                    </motion.div>
-                                ))}
+                        {/* Header */}
+                        <div className="flex items-center gap-4 mb-10">
+                            <div className="relative shrink-0">
+                                <div className="w-2 h-2 rounded-full bg-pink-500 animate-ping absolute inset-0" />
+                                <div className="w-2 h-2 rounded-full bg-pink-400" />
                             </div>
-
-                            {/* Scroll hint arrows */}
-                            {memory.gallery.length > 2 && (
-                                <div className="hidden md:flex justify-end mt-3 gap-2">
-                                    <div className="flex items-center gap-2 text-xs text-gray-400 font-medium">
-                                        <ArrowLeft size={14} />
-                                        scroll or swipe
-                                        <ArrowRight size={14} />
-                                    </div>
-                                </div>
-                            )}
+                            <div>
+                                <p className="text-[9px] font-black uppercase tracking-[0.4em] text-pink-500 dark:text-pink-400">Photo Pathway</p>
+                                <p className="text-[10px] text-gray-400 dark:text-gray-600 tracking-wider mt-0.5">{memory.gallery.length} frame{memory.gallery.length > 1 ? 's' : ''} · timeline</p>
+                            </div>
+                            <div className="flex-1 h-px bg-gradient-to-r from-pink-500/20 to-transparent" />
+                            <div className="px-3 py-1 rounded-full border border-pink-500/20 bg-pink-500/5 text-pink-500 dark:text-pink-400 text-[10px] font-bold tracking-widest">
+                                {String(memory.gallery.length).padStart(2, '0')} SHOTS
+                            </div>
                         </div>
+
+                        {/* Timeline rows */}
+                        <div className="flex flex-col">
+                            {memory.gallery.map((src, idx) => {
+                                const isLeft = idx % 2 === 0;
+                                const isFirst = idx === 0;
+                                const isLast = idx === memory.gallery.length - 1;
+
+                                return (
+                                    <div key={idx} className="grid grid-cols-[1fr_auto_1fr] items-stretch">
+
+                                        {/* LEFT COLUMN */}
+                                        <div className="flex items-center pr-5 py-6">
+                                            {isLeft ? (
+                                                <motion.div
+                                                    initial={{ opacity: 0, x: -50 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true, margin: '-50px' }}
+                                                    transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                                                    onClick={() => setLightboxIndex(idx + 1)}
+                                                    className="w-full relative group cursor-zoom-in"
+                                                >
+                                                    <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-pink-500/0 group-hover:from-pink-500/50 group-hover:via-violet-500/40 group-hover:to-cyan-400/30 transition-all duration-700 blur-sm" />
+                                                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/[0.07] shadow-lg group-hover:shadow-xl group-hover:shadow-pink-500/10 transition-all duration-500 bg-gray-100 dark:bg-[#0d0d0f]">
+                                                        <img src={src} alt={`frame-${idx + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+                                                        <div className="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/50 backdrop-blur border border-white/10 text-white/80 text-[8px] font-mono tracking-widest">
+                                                            <span className="w-1 h-1 rounded-full bg-pink-400" />
+                                                            {String(idx + 1).padStart(2, '0')} / {String(memory.gallery.length).padStart(2, '0')}
+                                                        </div>
+                                                        <div className="absolute bottom-0 inset-x-0 px-3 py-2.5 translate-y-1 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400">
+                                                            <span className="text-[9px] font-bold uppercase tracking-widest text-white/60">Frame {String(idx + 1).padStart(2, '0')}</span>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            ) : <div />}
+                                        </div>
+
+                                        {/* CENTER COLUMN — the spine */}
+                                        <div className="flex flex-col items-center w-14">
+                                            {/* Top connector (to previous node) */}
+                                            <div className={`w-px flex-1 ${isFirst ? 'opacity-0' : ''}`}
+                                                style={{
+                                                    background: isFirst
+                                                        ? 'transparent'
+                                                        : 'linear-gradient(to bottom, rgba(168,85,247,0.4), rgba(236,72,153,0.8))',
+                                                    boxShadow: isFirst ? 'none' : '0 0 6px 1px rgba(236,72,153,0.3)',
+                                                    minHeight: '24px'
+                                                }}
+                                            />
+
+                                            {/* Node */}
+                                            <motion.div
+                                                initial={{ scale: 0, opacity: 0 }}
+                                                whileInView={{ scale: 1, opacity: 1 }}
+                                                viewport={{ once: true, margin: '-30px' }}
+                                                transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.15 }}
+                                                className="relative shrink-0 my-1"
+                                            >
+                                                {/* Outer pulse ring */}
+                                                <div className="absolute inset-0 rounded-full bg-pink-500/20 animate-ping" style={{ animationDuration: '2s', animationDelay: `${idx * 0.3}s` }} />
+                                                {/* Glass ring */}
+                                                <div className="relative w-8 h-8 rounded-full border border-pink-500/40 dark:border-pink-500/50 bg-gradient-to-br from-pink-500/10 to-violet-500/10 backdrop-blur-sm flex items-center justify-center shadow-md shadow-pink-500/20">
+                                                    {/* Core dot */}
+                                                    <div className="w-3 h-3 rounded-full bg-gradient-to-br from-pink-500 to-violet-500 shadow-sm shadow-pink-500/60" />
+                                                </div>
+                                            </motion.div>
+
+                                            {/* Bottom connector (to next node) */}
+                                            <div className={`w-px flex-1 ${isLast ? 'opacity-0' : ''}`}
+                                                style={{
+                                                    background: isLast
+                                                        ? 'transparent'
+                                                        : 'linear-gradient(to bottom, rgba(236,72,153,0.8), rgba(34,211,238,0.4))',
+                                                    boxShadow: isLast ? 'none' : '0 0 6px 1px rgba(139,92,246,0.25)',
+                                                    minHeight: '24px'
+                                                }}
+                                            />
+                                        </div>
+
+                                        {/* RIGHT COLUMN */}
+                                        <div className="flex items-center pl-5 py-6">
+                                            {!isLeft ? (
+                                                <motion.div
+                                                    initial={{ opacity: 0, x: 50 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true, margin: '-50px' }}
+                                                    transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                                                    onClick={() => setLightboxIndex(idx + 1)}
+                                                    className="w-full relative group cursor-zoom-in"
+                                                >
+                                                    <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-bl from-violet-500/0 group-hover:from-violet-500/50 group-hover:via-pink-500/40 group-hover:to-cyan-400/30 transition-all duration-700 blur-sm" />
+                                                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/[0.07] shadow-lg group-hover:shadow-xl group-hover:shadow-violet-500/10 transition-all duration-500 bg-gray-100 dark:bg-[#0d0d0f]">
+                                                        <img src={src} alt={`frame-${idx + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+                                                        <div className="absolute top-2.5 right-2.5 flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/50 backdrop-blur border border-white/10 text-white/80 text-[8px] font-mono tracking-widest">
+                                                            <span className="w-1 h-1 rounded-full bg-violet-400" />
+                                                            {String(idx + 1).padStart(2, '0')} / {String(memory.gallery.length).padStart(2, '0')}
+                                                        </div>
+                                                        <div className="absolute bottom-0 inset-x-0 px-3 py-2.5 translate-y-1 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400">
+                                                            <span className="text-[9px] font-bold uppercase tracking-widest text-white/60">Frame {String(idx + 1).padStart(2, '0')}</span>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            ) : <div />}
+                                        </div>
+
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* End cap */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="flex flex-col items-center gap-2 mt-2"
+                        >
+                            <div className="w-px h-6" style={{ background: 'linear-gradient(to bottom, rgba(34,211,238,0.4), transparent)' }} />
+                            <div className="flex items-center gap-2">
+                                <div className="h-px w-8 bg-gradient-to-r from-transparent to-pink-500/30" />
+                                <span className="text-[8px] font-bold uppercase tracking-[0.4em] text-gray-400 dark:text-gray-600">end of pathway</span>
+                                <div className="h-px w-8 bg-gradient-to-l from-transparent to-violet-500/30" />
+                            </div>
+                        </motion.div>
                     </motion.div>
                 )}
 
+
                 {/* ─── CONTENT BLOCK ───────────────────────────────────── */}
-                <div className="flex flex-col md:flex-row gap-12 md:gap-24">
+                <div className="flex flex-col gap-10">
 
-                    {/* Left Meta */}
+                    {/* ── Meta Row ── */}
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: hasGallery ? 0.35 : 0.2, duration: 0.8 }}
-                        className="w-full md:w-1/3 space-y-8"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: hasGallery ? 0.5 : 0.35, duration: 0.8 }}
+                        className="flex flex-wrap gap-x-10 gap-y-6 items-start"
                     >
-                        <div className="flex flex-col gap-6">
-                            <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
-                                <span className="w-10 h-10 rounded-full bg-gray-200 dark:bg-white/5 flex items-center justify-center shrink-0 border border-gray-300 dark:border-white/10">
-                                    <Calendar size={18} className="text-pink-500" />
-                                </span>
-                                <div>
-                                    <div className="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">Date</div>
-                                    <div className="font-medium text-gray-900 dark:text-white leading-none">{memory.date}</div>
-                                </div>
+                        {/* Date */}
+                        <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                            <span className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/10">
+                                <Calendar size={15} className="text-pink-500" />
+                            </span>
+                            <div>
+                                <div className="text-[9px] font-bold uppercase tracking-widest opacity-50 mb-0.5">Date</div>
+                                <div className="text-sm font-semibold text-gray-900 dark:text-white leading-none">{memory.date}</div>
                             </div>
-
-                            <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
-                                <span className="w-10 h-10 rounded-full bg-gray-200 dark:bg-white/5 flex items-center justify-center shrink-0 border border-gray-300 dark:border-white/10">
-                                    <MapPin size={18} className="text-pink-500" />
-                                </span>
-                                <div>
-                                    <div className="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">Coordinates</div>
-                                    <div className="font-medium text-gray-900 dark:text-white leading-none capitalize">{memory.location}</div>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
-                                <span className="w-10 h-10 rounded-full bg-gray-200 dark:bg-white/5 flex items-center justify-center shrink-0 border border-gray-300 dark:border-white/10">
-                                    <Tag size={18} className="text-pink-500" />
-                                </span>
-                                <div>
-                                    <div className="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">Classification</div>
-                                    <div className="font-medium text-gray-900 dark:text-white leading-none uppercase tracking-wider">{memory.category}</div>
-                                </div>
-                            </div>
-
-                            {hasGallery && (
-                                <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
-                                    <span className="w-10 h-10 rounded-full bg-gray-200 dark:bg-white/5 flex items-center justify-center shrink-0 border border-gray-300 dark:border-white/10">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-pink-500"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>
-                                    </span>
-                                    <div>
-                                        <div className="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">Pathway Photos</div>
-                                        <div className="font-medium text-gray-900 dark:text-white leading-none">{memory.gallery.length} frames</div>
-                                    </div>
-                                </div>
-                            )}
                         </div>
 
-                        <div className="w-full h-[1px] bg-gradient-to-r from-gray-300 dark:from-white/10 to-transparent" />
+                        {/* Coordinates */}
+                        <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                            <span className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/10">
+                                <MapPin size={15} className="text-pink-500" />
+                            </span>
+                            <div>
+                                <div className="text-[9px] font-bold uppercase tracking-widest opacity-50 mb-0.5">Coordinates</div>
+                                <div className="text-sm font-semibold text-gray-900 dark:text-white leading-none capitalize">{memory.location}</div>
+                            </div>
+                        </div>
 
-                        <div className="opacity-40">
-                            <div className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-gray-600 to-gray-400 dark:from-gray-500 dark:to-gray-700" style={{ fontFamily: '"Dancing Script", cursive' }}>
+                        {/* Classification */}
+                        <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                            <span className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/10">
+                                <Tag size={15} className="text-pink-500" />
+                            </span>
+                            <div>
+                                <div className="text-[9px] font-bold uppercase tracking-widest opacity-50 mb-0.5">Classification</div>
+                                <div className="text-sm font-semibold text-gray-900 dark:text-white leading-none uppercase tracking-wider">{memory.category}</div>
+                            </div>
+                        </div>
+
+                        {/* Pathway Photos */}
+                        {hasGallery && (
+                            <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                                <span className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/10">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-pink-500"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>
+                                </span>
+                                <div>
+                                    <div className="text-[9px] font-bold uppercase tracking-widest opacity-50 mb-0.5">Pathway Photos</div>
+                                    <div className="text-sm font-semibold text-gray-900 dark:text-white leading-none">{memory.gallery.length} frames</div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Branding + CTA */}
+                        <div className="flex items-center gap-6 ml-auto">
+                            <div className="opacity-30 text-2xl bg-clip-text text-transparent bg-gradient-to-r from-gray-600 to-gray-400 dark:from-gray-500 dark:to-gray-700" style={{ fontFamily: '"Dancing Script", cursive' }}>
                                 Dheerajj.x
                             </div>
+                            {hasGallery && (
+                                <button
+                                    onClick={() => setLightboxIndex(0)}
+                                    className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 dark:hover:bg-white/10 hover:border-pink-400 transition-all text-sm font-bold text-gray-700 dark:text-white"
+                                >
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+                                    View all {allImages.length} frames
+                                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                                </button>
+                            )}
                         </div>
-                    </motion.div>
-
-                    {/* Right Copy */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: hasGallery ? 0.4 : 0.3, duration: 0.8 }}
-                        className="w-full md:w-2/3"
-                    >
-                        <h1 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white capitalize leading-[1.1] tracking-tight mb-8">
-                            {memory.title}
-                        </h1>
-
-                        <p className="text-3xl md:text-4xl leading-relaxed text-pink-600 shadow-pink-500 drop-shadow-sm dark:text-pink-300/90 font-medium italic mb-12" style={{ fontFamily: '"Dancing Script", cursive' }}>
-                            "{memory.quote}"
-                        </p>
-
-                        <div className="prose prose-lg dark:prose-invert prose-gray max-w-none prose-p:leading-loose prose-p:text-gray-600 dark:prose-p:text-gray-400 font-light">
-                            <p>
-                                The moment captured above holds a specific timestamp within the grander narrative of life.
-                                Recorded in <span className="capitalize font-bold text-gray-700 dark:text-white">{memory.location}</span> during {memory.date}.
-                                Space, light, and composition intersect permanently.
-                            </p>
-                            <p>
-                                This digital archive ensures that as time passes, the precise aesthetic feeling
-                                and core philosophy behind this single captured second will perpetually echo
-                                precisely as it felt originally.
-                            </p>
-                        </div>
-
-                        {/* View full pathway CTA */}
-                        {hasGallery && (
-                            <button
-                                onClick={() => setLightboxIndex(0)}
-                                className="mt-10 group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 dark:hover:bg-white/10 hover:border-pink-400 transition-all text-sm font-bold text-gray-700 dark:text-white"
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
-                                View all {allImages.length} frames
-                                <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
-                            </button>
-                        )}
                     </motion.div>
                 </div>
             </div>
@@ -378,7 +465,7 @@ const MemoryDetail = () => {
                     />
                 )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 };
 

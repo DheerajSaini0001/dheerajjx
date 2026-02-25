@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const highlights = [
+const DEFAULT_HIGHLIGHTS = [
     { icon: '🎯', label: 'Vision', value: 'Build experiences that matter', color: 'from-pink-500 to-rose-500', glow: 'hover:shadow-pink-500/20' },
     { icon: '🌙', label: 'Style', value: 'Dark, bold, and unapologetic', color: 'from-violet-500 to-purple-600', glow: 'hover:shadow-violet-500/20' },
     { icon: '📸', label: 'Craft', value: 'Storytelling through content', color: 'from-blue-500 to-cyan-500', glow: 'hover:shadow-blue-500/20' },
     { icon: '🔥', label: 'Energy', value: 'Relentless & fiercely creative', color: 'from-amber-500 to-orange-500', glow: 'hover:shadow-amber-500/20' },
 ];
 
-const StoryHighlight = () => {
+const StoryHighlight = ({ highlights = DEFAULT_HIGHLIGHTS }) => {
     return (
         <section className="py-20 px-4 bg-gray-100 dark:bg-gray-950">
             <motion.div
@@ -27,11 +27,7 @@ const StoryHighlight = () => {
                         whileHover={{ y: -6, scale: 1.04 }}
                         className={`relative flex flex-col items-center text-center gap-4 p-7 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-gray-900 shadow-xl ${item.glow} hover:shadow-2xl transition-all duration-300 overflow-hidden`}
                     >
-
-                        {/* Top accent line */}
                         <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r ${item.color} z-10`} />
-
-                        {/* Content — sits above overlay */}
                         <span className="relative z-10 text-4xl">{item.icon}</span>
                         <span className={`relative z-10 text-xs uppercase tracking-widest font-bold bg-clip-text text-transparent bg-gradient-to-r ${item.color}`}>{item.label}</span>
                         <p className="relative z-10 text-sm text-gray-700 dark:text-gray-300 font-medium leading-snug">{item.value}</p>
