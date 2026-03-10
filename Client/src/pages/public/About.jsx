@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import useSEO from '../../utils/useSEO';
 
 import StoryHero from '../../components/story/StoryHero';
 import StorySection from '../../components/story/StorySection';
@@ -78,6 +79,10 @@ const ChapterSection = ({ section, index, total }) => {
 
 // ── Main About page ───────────────────────────────────────────────────────────
 const About = () => {
+  useSEO(
+    "My Story | Dheerajj.x – The Journey of a Fearless Soul ",
+    "Discover the journey of Dheerajj.x. Unveiling the fearless soul behind the screen, exploring life's deepest mysteries through art, code, and emotion."
+  );
   const [highlights, setHighlights] = useState(FALLBACK_HIGHLIGHTS);
   const [chapters, setChapters] = useState(FALLBACK_CHAPTERS);
   const [signatureQuote, setSignatureQuote] = useState(FALLBACK_QUOTE);

@@ -45,9 +45,9 @@ const AdminLayout = () => {
       {/* Logo Area */}
       <div className="h-24 flex items-center px-8 border-b border-gray-200 dark:border-white/5 relative overflow-hidden shrink-0">
         <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/10 rounded-full blur-[40px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <h1 className="text-2xl font-black text-gray-900 dark:text-white tracking-tighter">
+        <div className="text-2xl font-black text-gray-900 dark:text-white tracking-tighter">
           Command<span className="text-violet-500">.</span>
-        </h1>
+        </div>
       </div>
 
       {/* Navigation Links */}

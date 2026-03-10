@@ -12,6 +12,7 @@ import Memories from '../pages/public/Memories';
 import MemoryDetail from '../pages/public/MemoryDetail';
 import Thoughts from '../pages/public/Thoughts';
 import Gallery from '../pages/public/Gallery';
+import InstagramFeed from '../pages/public/InstagramFeed';
 
 import Login from '../pages/admin/Login';
 import Dashboard from '../pages/admin/Dashboard';
@@ -31,6 +32,7 @@ const AppRoutes = () => {
         <Route path="/memories/:id" element={<MemoryDetail />} />
         <Route path="/thoughts" element={<Thoughts />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/instagram" element={<InstagramFeed />} />
       </Route>
 
       {/* Admin Routes */}

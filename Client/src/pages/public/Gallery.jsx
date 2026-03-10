@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
+import useSEO from '../../utils/useSEO';
 
 // Advanced Full-Screen Carousel
 const CarouselModal = ({ images, initialIndex, onClose }) => {
@@ -131,6 +132,10 @@ const CarouselModal = ({ images, initialIndex, onClose }) => {
 };
 
 const Gallery = () => {
+  useSEO(
+    "Aesthetic Visuals Lookbook | Gallery View By Dheerajj.x",
+    "Immerse yourself in the aesthetic lookbook of Dheerajj.x. A premium visual gallery showcasing striking photography, dark aesthetics, and fearless style."
+  );
   const { scrollYProgress } = useScroll();
   const yTransform = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
@@ -185,14 +190,15 @@ const Gallery = () => {
 
       {/* Massive scrolling text background */}
       <div className="fixed top-1/2 left-0 w-full -translate-y-1/2 pointer-events-none z-0 overflow-hidden opacity-[0.02] mix-blend-overlay">
-        <motion.h1
+        <motion.div
           initial={{ x: '0%' }}
           animate={{ x: '-50%' }}
           transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
           className="text-[20vw] font-black uppercase whitespace-nowrap leading-none tracking-tighter"
+          aria-hidden="true"
         >
           LOOKBOOK AESTHETIC VISUALS LOOKBOOK AESTHETIC VISUALS
-        </motion.h1>
+        </motion.div>
       </div>
 
       {/* Glow Orbs */}
@@ -248,8 +254,8 @@ const Gallery = () => {
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={`px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${activeCategory === cat
-                  ? 'bg-gray-900 text-white dark:bg-white dark:text-black shadow-[0_0_20px_rgba(0,0,0,0.15)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105'
-                  : 'bg-transparent text-gray-500 border border-gray-300 dark:border-white/10 hover:text-gray-900 dark:hover:text-white hover:border-gray-500 dark:hover:border-white/30 hover:bg-gray-100 dark:hover:bg-white/5'
+                ? 'bg-gray-900 text-white dark:bg-white dark:text-black shadow-[0_0_20px_rgba(0,0,0,0.15)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105'
+                : 'bg-transparent text-gray-500 border border-gray-300 dark:border-white/10 hover:text-gray-900 dark:hover:text-white hover:border-gray-500 dark:hover:border-white/30 hover:bg-gray-100 dark:hover:bg-white/5'
                 }`}
             >
               {cat}

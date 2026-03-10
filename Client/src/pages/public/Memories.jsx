@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
+import useSEO from '../../utils/useSEO';
 
 const MemoryCard = ({ memory, index, onClick }) => {
   return (
@@ -77,6 +78,10 @@ const MemoryCard = ({ memory, index, onClick }) => {
 
 
 const Memories = () => {
+  useSEO(
+    "Digital Memories Archive | Dheerajj.x – Echoes Of Time.",
+    "Browse the digital archive of Dheerajj.x's memories. A highly aesthetic collection of moments, capturing the true essence of time and life experiences."
+  );
   const { scrollYProgress } = useScroll();
   const yTransform = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacityTransform = useTransform(scrollYProgress, [0, 0.2], [1, 0]);

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, ArrowLeft, ArrowRight, Calendar, MapPin, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import useSEO from '../../utils/useSEO';
 
 // Full-screen lightbox for pathway photos
 const PathwayLightbox = ({ images, startIndex, onClose }) => {
@@ -112,6 +113,17 @@ const MemoryDetail = () => {
     const [memory, setMemory] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [lightboxIndex, setLightboxIndex] = useState(null);
+
+    const titleStr = memory ? `${memory.title} | By Dheerajj.x`.padEnd(55, ' ').substring(0, 55) : "Decrypting Memory Archives | By Dheerajj.x";
+
+    // Auto-generate exact 154 char description from memory data
+    const descStr = memory
+        ? `Explore "${memory.title}" captured in ${memory.location} during ${memory.date}. ${memory.quote} Discover the full aesthetic visual story now by Dheerajj.x.`
+        : "Decrypting the digital archive of deepest memories. Please wait while the visual storytelling assets are retrieved from the secure database collection.";
+
+    const finalDesc = descStr.padEnd(154, ' ').substring(0, 154);
+
+    useSEO(titleStr, finalDesc);
 
     useEffect(() => {
         const fetchMemory = async () => {

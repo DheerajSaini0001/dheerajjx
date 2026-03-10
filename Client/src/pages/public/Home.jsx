@@ -1,41 +1,48 @@
 import React, { useState, useEffect } from 'react';
-
-// Components
+import useSEO from '../../utils/useSEO';// Components
 import HeroSection from '../../components/home/HeroSection';
 import IdentitySection from '../../components/home/IdentitySection';
 import FeaturedMemories from '../../components/home/FeaturedMemories';
 import PhilosophySection from '../../components/home/PhilosophySection';
 import ThoughtSection from '../../components/home/ThoughtSection';
 import CTASection from '../../components/home/CTASection';
+import InstagramSection from '../../components/home/InstagramSection';
 import { dailyQuotes } from '../../data/quotes';
 // Footer is handled by MainLayout to avoid duplication
 
 const Home = () => {
+  useSEO(
+    "Dheerajj.x | Official Portfolio | Smart Dark & Fearless",
+    "Explore the digital world of Dheerajj.x. A smart, dark, and fearless soul sharing design philosophy, deep thoughts, and aesthetic visual storytelling."
+  );
   // State Management (as per roadmap)
   const [about, setAbout] = useState(null);
   const [memories, setMemories] = useState(null);
   const [thought, setThought] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Mock API Calls (Phase 9)
+  // Fetch real data from API
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        // Simulate API delays
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
         // 1. Identity Data
         setAbout({
           intro: "Capturing moments, creating stories, and inspiring the next wave.",
           traits: ["Digital Creator", "Visual Storyteller", "Trend Setter", "Lifestyle Curator"]
         });
 
-        // 2. Featured Memories Data (Limit 3)
-        setMemories([
-          { id: 1, title: 'The First Spark', preview: 'Where the coding journey truly began.', date: 'Dec 2025' },
-          { id: 2, title: 'Midnight Debugging', preview: 'When the caffeine hits just right.', date: 'Jan 2026' },
-          { id: 3, title: 'System Architecture', preview: 'Building complex systems from scratch.', date: 'Feb 2026' }
-        ]);
+        // 2. Featured Gallery Photos (latest 6 from admin panel)
+        try {
+          const res = await fetch('http://localhost:201/api/gallery');
+          const data = await res.json();
+          if (Array.isArray(data)) {
+            // Take the latest 6 photos
+            setMemories(data.slice(0, 6));
+          }
+        } catch (galleryError) {
+          console.error("Failed to fetch gallery photos", galleryError);
+          setMemories([]);
+        }
 
         // 3. Thought of the Day Logic
         const date = new Date().getDate(); // 1-31
@@ -44,7 +51,6 @@ const Home = () => {
 
       } catch (error) {
         console.error("Failed to fetch home data", error);
-        // Fallback or error state logic here
       } finally {
         setLoading(false);
       }
@@ -67,6 +73,7 @@ const Home = () => {
       <IdentitySection about={about} />
       <FeaturedMemories memories={memories} />
       <PhilosophySection />
+      <InstagramSection />
       <ThoughtSection thought={thought} />
       <CTASection />
       {/* Footer is rendered by MainLayout */}

@@ -11,6 +11,7 @@ const navLinks = [
   { name: 'Memories', path: '/memories' },
   { name: 'Thoughts', path: '/thoughts' },
   { name: 'Gallery', path: '/gallery' },
+  { name: 'Instagram', path: '/instagram' },
 ];
 
 const Navbar = () => {
@@ -38,12 +39,12 @@ const Navbar = () => {
       {/* Main bar */}
       <div
         className={`w-full transition-all duration-300 ${scrolled
-            ? isDark
-              ? 'bg-gray-950/80 backdrop-blur-xl shadow-2xl shadow-black/40 border-b border-white/[0.06]'
-              : 'bg-white/80 backdrop-blur-xl shadow-2xl shadow-gray-200/60 border-b border-black/[0.06]'
-            : isDark
-              ? 'bg-gray-950/60 backdrop-blur-md border-b border-white/[0.04]'
-              : 'bg-white/60 backdrop-blur-md border-b border-black/[0.04]'
+          ? isDark
+            ? 'bg-gray-950/80 backdrop-blur-xl shadow-2xl shadow-black/40 border-b border-white/[0.06]'
+            : 'bg-white/80 backdrop-blur-xl shadow-2xl shadow-gray-200/60 border-b border-black/[0.06]'
+          : isDark
+            ? 'bg-gray-950/60 backdrop-blur-md border-b border-white/[0.04]'
+            : 'bg-white/60 backdrop-blur-md border-b border-black/[0.04]'
           }`}
       >
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10">
@@ -87,10 +88,10 @@ const Navbar = () => {
 
                       <span
                         className={`relative z-10 transition-colors duration-200 ${isActive
-                            ? 'text-white font-semibold'
-                            : isDark
-                              ? 'text-gray-300 group-hover:text-white'
-                              : 'text-gray-600 group-hover:text-gray-900'
+                          ? 'text-white font-semibold'
+                          : isDark
+                            ? 'text-gray-300 group-hover:text-white'
+                            : 'text-gray-600 group-hover:text-gray-900'
                           }`}
                       >
                         {link.name}
@@ -108,8 +109,8 @@ const Navbar = () => {
                 onClick={toggleTheme}
                 title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                 className={`relative p-2.5 rounded-full transition-all duration-200 overflow-hidden ${isDark
-                    ? 'bg-white/8 hover:bg-white/14 text-yellow-300 border border-white/10 hover:border-white/20'
-                    : 'bg-black/6 hover:bg-black/10 text-gray-700 border border-black/8 hover:border-black/14'
+                  ? 'bg-white/8 hover:bg-white/14 text-yellow-300 border border-white/10 hover:border-white/20'
+                  : 'bg-black/6 hover:bg-black/10 text-gray-700 border border-black/8 hover:border-black/14'
                   }`}
               >
                 <AnimatePresence mode="wait" initial={false}>
@@ -143,8 +144,8 @@ const Navbar = () => {
               <button
                 onClick={toggleTheme}
                 className={`p-2.5 rounded-full transition-colors ${isDark
-                    ? 'bg-white/8 text-yellow-300 border border-white/10'
-                    : 'bg-black/6 text-gray-700 border border-black/8'
+                  ? 'bg-white/8 text-yellow-300 border border-white/10'
+                  : 'bg-black/6 text-gray-700 border border-black/8'
                   }`}
               >
                 <AnimatePresence mode="wait" initial={false}>
@@ -164,8 +165,8 @@ const Navbar = () => {
                 whileTap={{ scale: 0.88 }}
                 onClick={() => setIsOpen(!isOpen)}
                 className={`p-2.5 rounded-full border transition-colors ${isDark
-                    ? 'bg-white/8 text-white border-white/10 hover:bg-white/14'
-                    : 'bg-black/6 text-gray-800 border-black/8 hover:bg-black/10'
+                  ? 'bg-white/8 text-white border-white/10 hover:bg-white/14'
+                  : 'bg-black/6 text-gray-800 border-black/8 hover:bg-black/10'
                   }`}
               >
                 {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -186,8 +187,8 @@ const Navbar = () => {
             transition={{ duration: 0.2, ease: 'easeOut' }}
             style={{ transformOrigin: 'top' }}
             className={`md:hidden overflow-hidden border-b ${isDark
-                ? 'bg-gray-950/95 backdrop-blur-xl border-white/[0.07]'
-                : 'bg-white/95 backdrop-blur-xl border-black/[0.06]'
+              ? 'bg-gray-950/95 backdrop-blur-xl border-white/[0.07]'
+              : 'bg-white/95 backdrop-blur-xl border-black/[0.06]'
               }`}
           >
             <div className="px-4 py-5 space-y-1">
