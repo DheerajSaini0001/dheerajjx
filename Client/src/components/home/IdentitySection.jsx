@@ -19,6 +19,16 @@ const IdentitySection = ({ about }) => {
                     {about.intro}
                 </h2>
 
+                <motion.p
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="mt-6 text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
+                >
+                    This platform serves as a comprehensive intersection of striking visual storytelling, rigorous personal philosophy, and relentless creative evolution. It goes beyond the traditional resume or portfolio; it is an unapologetic, deeply personal digital archive meticulously designed to provoke thought and inspire bold choices. In an era overwhelmed by fast, disposable content, my ambition is to build things that linger. Everything from the structural code architecture down to the subtle, dark-mode gradients is a direct reflection of an underlying ethos: prioritize massive depth over superficial noise, choose intense discipline over fleeting motivation, and pursue a timeless aesthetic.
+                </motion.p>
+
                 <div className="flex flex-wrap justify-center gap-4 mt-8">
                     {about.traits.map((trait, index) => (
                         <motion.span

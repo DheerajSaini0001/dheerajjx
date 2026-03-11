@@ -104,7 +104,13 @@ const InstagramLightbox = ({ post, onClose }) => {
 const InstagramFeed = () => {
     useSEO(
         "Instagram Feed Integration | Live Updates by Dheerajj.x",
-        "Experience the real-time visual updates from Dheerajj.x. A seamlessly synced Instagram feed displaying the latest moments, dark vibes, and photography."
+        "Experience the real-time visual updates from Dheerajj.x. A seamlessly synced Instagram feed displaying the latest moments, dark vibes, and photography.",
+        {
+            "@context": "https://schema.org",
+            "@type": "ImageGallery",
+            "name": "Live Instagram Feed | Dheerajj.x",
+            "description": "Experience the real-time visual updates from Dheerajj.x. A seamlessly synced Instagram feed displaying the latest moments, dark vibes, and photography."
+        }
     );
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -112,6 +118,7 @@ const InstagramFeed = () => {
     const [selectedPost, setSelectedPost] = useState(null);
     const [total, setTotal] = useState(0);
     const [offset, setOffset] = useState(0);
+    const [activeTab, setActiveTab] = useState('All');
     const limit = 12;
 
     const fetchFeed = useCallback(async (currentOffset = 0) => {
@@ -174,6 +181,15 @@ const InstagramFeed = () => {
         return text.substring(0, maxLen).trim() + '...';
     };
 
+    const tabs = ['All', 'Photos', 'Videos', 'Carousels'];
+    const filteredPosts = posts.filter(post => {
+        if (activeTab === 'All') return true;
+        if (activeTab === 'Photos') return post.media_type === 'IMAGE';
+        if (activeTab === 'Videos') return post.media_type === 'VIDEO';
+        if (activeTab === 'Carousels') return post.media_type === 'CAROUSEL_ALBUM';
+        return true;
+    });
+
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-[#030303] text-gray-900 dark:text-white pt-28 pb-32 overflow-hidden selection:bg-pink-500/30">
             {/* Background Elements */}
@@ -208,8 +224,11 @@ const InstagramFeed = () => {
                         </div>
 
                         <div className="max-w-sm">
+                            <p className="text-gray-500 dark:text-gray-400 md:text-right font-light leading-relaxed mb-4">
+                                Welcome to my fully synced, real-time visual journal. This is not just another social media feed; it is a meticulously curated digital window into my daily creative process. Every single post, story, and visual experiment is automatically synchronized directly from my active Instagram profile. I designed this specific integration to break down the barrier between my personal social channels and my professional portfolio. 
+                            </p>
                             <p className="text-gray-500 dark:text-gray-400 md:text-right font-light leading-relaxed">
-                                Live updates from my Instagram. Every post, every story, synced automatically in real-time.
+                                Here, you will find an unfiltered look at my aesthetic evolution. From moody, dark-mode architectural shots to candid glimpses of my workspace, this feed serves as a dynamic, ever-changing mood board. It reflects my ongoing dedication to mastering visual composition, understanding complex lighting dynamics, and capturing the fleeting essence of modern life. I invite you to explore these squares not just as isolated photographs, but as connected pieces of a much larger, ongoing narrative. Social media is often criticized for its superficiality, but when used intentionally, it becomes a incredibly powerful medium for genuine artistic expression and honest global connection.
                             </p>
                             <div className="md:text-right mt-4">
                                 <a
@@ -229,6 +248,32 @@ const InstagramFeed = () => {
                         </div>
                     </div>
                 </motion.header>
+
+                {/* Animated Instagram Categories Tabs */}
+                {posts.length > 0 && (
+                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-12 p-1.5 rounded-full bg-gray-200/50 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 w-fit mx-auto md:mx-0 shadow-inner">
+                        {tabs.map((tab) => (
+                            <button
+                                key={tab}
+                                onClick={() => setActiveTab(tab)}
+                                className={`relative px-6 py-2.5 outline-none rounded-full text-xs font-bold uppercase tracking-[0.15em] transition-all duration-300 ${
+                                    activeTab === tab
+                                        ? 'text-white'
+                                        : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                                }`}
+                            >
+                                {activeTab === tab && (
+                                    <motion.div
+                                        layoutId="insta-tab"
+                                        className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 rounded-full shadow-md shadow-pink-500/30"
+                                        transition={{ type: 'spring', stiffness: 450, damping: 30 }}
+                                    />
+                                )}
+                                <span className="relative z-10">{tab}</span>
+                            </button>
+                        ))}
+                    </div>
+                )}
 
                 {/* Error State */}
                 {error && !loading && posts.length === 0 && (
@@ -256,99 +301,107 @@ const InstagramFeed = () => {
                     </div>
                 )}
 
-                {/* Feed Grid — SRS: FR-FE-03 Responsive: 3 col desktop, 2 tablet, 1 mobile */}
+                {/* Feed Grid Responsive */}
                 {posts.length > 0 && (
                     <motion.div
+                        layout
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7"
                     >
-                        {posts.map((post, index) => (
-                            <motion.div
-                                key={post.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.05, duration: 0.4 }}
-                                onClick={() => setSelectedPost(post)}
-                                className="group relative cursor-pointer rounded-2xl overflow-hidden bg-white dark:bg-white/[0.03] border border-gray-200/80 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/15 transition-all duration-500 hover:shadow-xl dark:hover:shadow-pink-500/5"
-                            >
-                                {/* Image */}
-                                <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-900">
-                                    <img
-                                        src={post.media_url}
-                                        alt={post.caption || 'Instagram post'}
-                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                                        loading="lazy"
-                                    />
+                        <AnimatePresence mode="popLayout">
+                            {filteredPosts.map((post, index) => (
+                                <motion.div
+                                    layout
+                                    key={post.id}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: 0.4 }}
+                                    onClick={() => setSelectedPost(post)}
+                                    className="group relative cursor-pointer rounded-2xl overflow-hidden bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-500 hover:shadow-2xl dark:hover:shadow-pink-500/10 flex flex-col"
+                                >
+                                    {/* Image */}
+                                    <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-900 border-b border-gray-100 dark:border-white/5">
+                                        <img
+                                            src={post.media_url}
+                                            alt={post.caption || 'Instagram post'}
+                                            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                                            loading="lazy"
+                                        />
 
-                                    {/* Gradient overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                        {/* Gradient overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                                    {/* Media type badge */}
-                                    {post.media_type === 'VIDEO' && (
-                                        <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
-                                                <polygon points="5 3 19 12 5 21 5 3" />
-                                            </svg>
+                                        {/* Media type badge */}
+                                        {post.media_type === 'VIDEO' && (
+                                            <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg shadow-black/40">
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
+                                                    <polygon points="5 3 19 12 5 21 5 3" />
+                                                </svg>
+                                            </div>
+                                        )}
+                                        {post.media_type === 'CAROUSEL_ALBUM' && (
+                                            <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg shadow-black/40">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                                                    <rect x="2" y="2" width="16" height="16" rx="2" />
+                                                    <rect x="6" y="6" width="16" height="16" rx="2" />
+                                                </svg>
+                                            </div>
+                                        )}
+
+                                        {/* Hover info */}
+                                        <div className="absolute bottom-0 left-0 right-0 p-5 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                                            <p className="text-white text-sm font-medium line-clamp-2 drop-shadow-md">
+                                                {truncateCaption(post.caption, 100) || 'View post'}
+                                            </p>
                                         </div>
-                                    )}
-                                    {post.media_type === 'CAROUSEL_ALBUM' && (
-                                        <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                                                <rect x="2" y="2" width="16" height="16" rx="2" />
-                                                <rect x="6" y="6" width="16" height="16" rx="2" />
-                                            </svg>
-                                        </div>
-                                    )}
 
-                                    {/* Hover info */}
-                                    <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-400">
-                                        <p className="text-white text-sm font-medium line-clamp-2">
-                                            {truncateCaption(post.caption, 100) || 'View post'}
-                                        </p>
+                                        {/* Center expand icon */}
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                            <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white scale-75 group-hover:scale-100 transition-all duration-300">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    {/* Center expand icon */}
-                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                        <div className="w-12 h-12 rounded-full bg-white/15 backdrop-blur-xl border border-white/25 flex items-center justify-center text-white">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-                                            </svg>
+                                    {/* Caption + Meta */}
+                                    <div className="p-6 flex-1 flex flex-col justify-between">
+                                        {post.caption && (
+                                            <p className="text-gray-700 dark:text-gray-300 text-sm line-clamp-3 leading-relaxed mb-6 font-medium">
+                                                {truncateCaption(post.caption, 160)}
+                                            </p>
+                                        )}
+
+                                        <div className="flex items-center justify-between mt-auto">
+                                            <span className="inline-flex items-center px-2.5 py-1 rounded border border-gray-200 dark:border-white/10 text-gray-400 dark:text-white/40 text-[9px] font-bold tracking-[0.2em] uppercase bg-gray-50 dark:bg-white/5">
+                                                {formatTimeAgo(post.timestamp)}
+                                            </span>
+                                            <a
+                                                href={post.permalink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="w-10 h-10 rounded-full bg-pink-50 dark:bg-white/5 border border-pink-100 dark:border-white/10 flex items-center justify-center text-pink-500 hover:bg-gradient-to-r hover:from-yellow-400 hover:via-pink-500 hover:to-purple-600 hover:text-white hover:border-transparent transition-all shadow-sm"
+                                                title="View on Instagram"
+                                            >
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                                    <polyline points="15 3 21 3 21 9" />
+                                                    <line x1="10" y1="14" x2="21" y2="3" />
+                                                </svg>
+                                            </a>
                                         </div>
                                     </div>
-                                </div>
-
-                                {/* Caption + Meta */}
-                                <div className="p-4">
-                                    {post.caption && (
-                                        <p className="text-gray-700 dark:text-white/60 text-sm line-clamp-2 leading-relaxed mb-3">
-                                            {truncateCaption(post.caption, 150)}
-                                        </p>
-                                    )}
-
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-gray-400 dark:text-white/30 text-xs font-mono">
-                                            {formatTimeAgo(post.timestamp)}
-                                        </span>
-                                        <a
-                                            href={post.permalink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            onClick={(e) => e.stopPropagation()}
-                                            className="text-gray-400 dark:text-white/30 hover:text-pink-500 dark:hover:text-pink-400 transition-colors"
-                                            title="View on Instagram"
-                                        >
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                                                <polyline points="15 3 21 3 21 9" />
-                                                <line x1="10" y1="14" x2="21" y2="3" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
+                                    
+                                    {/* Outer Hover Glow effect */}
+                                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5 dark:ring-white/5 group-hover:ring-pink-500/30 transition-all duration-500 pointer-events-none" />
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
                     </motion.div>
                 )}
 

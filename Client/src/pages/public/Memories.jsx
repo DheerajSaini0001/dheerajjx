@@ -80,7 +80,13 @@ const MemoryCard = ({ memory, index, onClick }) => {
 const Memories = () => {
   useSEO(
     "Digital Memories Archive | Dheerajj.x – Echoes Of Time.",
-    "Browse the digital archive of Dheerajj.x's memories. A highly aesthetic collection of moments, capturing the true essence of time and life experiences."
+    "Browse the digital archive of Dheerajj.x's memories. A highly aesthetic collection of moments, capturing the true essence of time and life experiences.",
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Digital Memories Archive",
+      "description": "Browse the digital archive of Dheerajj.x's memories. A highly aesthetic collection of moments, capturing the true essence of time and life experiences."
+    }
   );
   const { scrollYProgress } = useScroll();
   const yTransform = useTransform(scrollYProgress, [0, 1], [0, -100]);
@@ -192,6 +198,15 @@ const Memories = () => {
           >
             Moments captured. Feelings preserved.
           </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="mt-8 text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
+          >
+            A photograph is more than just a visual record. It is a time capsule, a bridge between what was and what will be. Through these carefully curated digital archives, I invite you to explore a visual journey of growth, passion, and artistic exploration. Each image holds a unique story, an untold emotion, and a distinct perspective on the world. I believe that life is a collection of fleeting moments, and by preserving them, we create a legacy of beauty and truth. This gallery is a tribute to those quiet times of reflection, the loud celebrations of success, the subtle transitions between seasons, and the profound beauty found in everyday simplicity. Through my lens, I seek not only to document my reality but to evoke a sense of shared human experience. From the neon-lit streets of modern cyberpunk landscapes to the raw, unfiltered expressions of genuine emotion, every frame is an intentional choice. As you browse this collection, I hope these visuals ignite your own memories, inspire a sense of wonder, and remind you of the incredible depth that life has to offer when we pause long enough to truly look.
+          </motion.div>
         </motion.div>
 
         {/* Loader / Masonry Grid */}

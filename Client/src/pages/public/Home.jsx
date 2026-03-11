@@ -13,7 +13,13 @@ import { dailyQuotes } from '../../data/quotes';
 const Home = () => {
   useSEO(
     "Dheerajj.x | Official Portfolio | Smart Dark & Fearless",
-    "Explore the digital world of Dheerajj.x. A smart, dark, and fearless soul sharing design philosophy, deep thoughts, and aesthetic visual storytelling."
+    "Explore the digital world of Dheerajj.x. A smart, dark, and fearless soul sharing design philosophy, deep thoughts, and aesthetic visual storytelling.",
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Dheerajj.x Official Portfolio",
+      "description": "Explore the digital world of Dheerajj.x. A smart, dark, and fearless soul sharing design philosophy, deep thoughts, and aesthetic visual storytelling."
+    }
   );
   // State Management (as per roadmap)
   const [about, setAbout] = useState(null);

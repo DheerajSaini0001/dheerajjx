@@ -123,7 +123,22 @@ const MemoryDetail = () => {
 
     const finalDesc = descStr.padEnd(154, ' ').substring(0, 154);
 
-    useSEO(titleStr, finalDesc);
+    useSEO(titleStr, finalDesc, memory ? {
+        "@context": "https://schema.org",
+        "@type": "Photograph",
+        "name": memory.title,
+        "description": finalDesc,
+        "image": memory.imageUrl,
+        "dateCreated": memory.date,
+        "locationCreated": {
+            "@type": "Place",
+            "name": memory.location
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Dheerajj.x"
+        }
+    } : null);
 
     useEffect(() => {
         const fetchMemory = async () => {
@@ -183,7 +198,7 @@ const MemoryDetail = () => {
                     <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-white/5 flex items-center justify-center group-hover:bg-gray-300 dark:group-hover:bg-white/10 transition-colors border border-gray-300 dark:border-white/10">
                         <ArrowLeft size={16} />
                     </div>
-                    <span>Back to Archive</span>
+                    <span>Memories</span>
                 </motion.button>
 
                 {/* Hero Showcase Image */}

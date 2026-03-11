@@ -78,7 +78,7 @@ const InstagramSection = () => {
                         to="/instagram"
                         className="group flex items-center gap-2 text-gray-500 dark:text-gray-400 font-medium hover:text-pink-500 dark:hover:text-pink-400 transition-colors text-sm"
                     >
-                        <span>See All Posts</span>
+                        <span>Instagram</span>
                         <motion.span
                             animate={{ x: [0, 4, 0] }}
                             transition={{ repeat: Infinity, duration: 1.5 }}

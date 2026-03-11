@@ -6,7 +6,13 @@ import useSEO from '../../utils/useSEO';
 const Thoughts = () => {
   useSEO(
     "Deep Thoughts & Reflections | Dheerajj.x – Into My Mind",
-    "Dive into the mind of Dheerajj.x. Read deep reflections, philosophical essays, and intimate thoughts written with a smart, dark, & fearless perspective."
+    "Dive into the mind of Dheerajj.x. Read deep reflections, philosophical essays, and intimate thoughts written with a smart, dark, & fearless perspective.",
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Deep Thoughts & Reflections",
+      "description": "Dive into the mind of Dheerajj.x. Read deep reflections, philosophical essays, and intimate thoughts written with a smart, dark, & fearless perspective."
+    }
   );
   const [selectedThought, setSelectedThought] = useState(null);
   const [thoughtsData, setThoughtsData] = useState([]);
@@ -169,6 +175,15 @@ const Thoughts = () => {
           >
             Unfiltered thoughts, philosophical musings, and the quiet chaos of the creative process.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="mt-6 text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-3xl leading-relaxed"
+          >
+            The mind is an endless labyrinth of ideas, observations, and deeply rooted philosophies. In this space, I untangle the complex web of human emotion, technological advancement, and self-discovery. These essays and journal entries serve as a mirror reflecting navigating a modern world where authenticity often battles with sheer noise. I strongly believe that writing is not just a method of communication, but a profound form of cognitive exploration. Each paragraph here is carefully crafted to challenge the status quo, question conventional wisdom, and dig beneath the superficial layers of daily life. Whether we are discussing the intricate nuances of digital aesthetics, the silent struggles of creative burnout, or the relentless pursuit of personal excellence, nothing is off-limits. I invite you to read these reflections slowly. Let the concepts simmer. My goal is not to give you all the answers, but to provoke better questions. Welcome to the unfiltered intellectual journey.
+          </motion.div>
         </header>
 
         {/* Categories */}

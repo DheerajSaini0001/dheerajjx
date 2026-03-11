@@ -21,7 +21,7 @@ import p15 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.
 import p16 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.40 (2).jpeg';
 import p17 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.40.jpeg';
 
-const FALLBACK_PHOTOS = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17];
+const FALLBACK_PHOTOS = [p8]; // Using the image with "11" in the filename as the sole default
 const INTERVAL_MS = 3 * 60 * 60 * 1000; // 3 hours
 const API = import.meta.env.VITE_API_URL || 'http://localhost:201';
 
@@ -60,21 +60,25 @@ const HeroSection = () => {
     const currentSrc = photos[slot]?.imageUrl || FALLBACK_PHOTOS[0];
 
     return (
-        <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-20">
+        <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-0 overflow-hidden pt-20">
 
             {/* ── Background Photo (crossfades every 3 h) ── */}
             <div className="absolute inset-0 z-0">
                 <AnimatePresence mode="sync">
-                    <motion.img
+                    <motion.div
                         key={slot}
-                        src={currentSrc}
-                        alt="Dheeraj"
-                        initial={{ opacity: 0, scale: 1.04 }}
+                        initial={{ opacity: 0, scale: 1.02 }}
                         animate={{ opacity: 0.70, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.97 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
                         transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute inset-0 w-full h-full object-cover object-center dark:opacity-55"
-                    />
+                        className="absolute inset-0 w-full h-full dark:opacity-55"
+                    >
+                        <img 
+                            src={currentSrc} 
+                            alt="Dheeraj" 
+                            className="absolute inset-0 w-full h-full object-cover object-top" 
+                        />
+                    </motion.div>
                 </AnimatePresence>
                 {/* Gradient overlay — keeps text readable */}
                 <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/10 to-white/60 dark:from-gray-950/50 dark:via-gray-950/20 dark:to-gray-950/70" />
@@ -100,7 +104,7 @@ const HeroSection = () => {
             </div>
 
             {/* ── Content ── */}
-            <div className="relative z-10 max-w-5xl mx-auto space-y-8">
+            <div className="relative z-10 w-full px-4 max-w-5xl mx-auto space-y-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -110,7 +114,8 @@ const HeroSection = () => {
                         👋 Welcome to my digital space
                     </span>
                     <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-4 leading-[1.1]">
-                        I am <br className="md:hidden" />
+                        I am{' '}
+                        <br className="md:hidden" />
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 animate-gradient-x">
                             Dheerajj.x
                         </span>
@@ -124,6 +129,7 @@ const HeroSection = () => {
                     className="text-xl md:text-3xl text-gray-600 dark:text-gray-300 font-light max-w-3xl mx-auto leading-relaxed"
                 >
                     <span className="font-semibold text-gray-900 dark:text-white">Smart, Dark &amp; Fearless Soul.</span>
+                    {' '}
                     <br className="hidden md:block" />
                     Exploring the depths of technology and human emotion.
                 </motion.p>
@@ -136,11 +142,11 @@ const HeroSection = () => {
                 >
                     <Button to="/memories" variant="primary" size="lg"
                         className="rounded-full px-8 py-4 text-lg shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-shadow">
-                        Explore Memories
+                        Memories
                     </Button>
                     <Button to="/about" variant="outline" size="lg"
                         className="rounded-full px-8 py-4 text-lg backdrop-blur-sm bg-white/50 dark:bg-gray-900/50 hover:bg-white/80 dark:hover:bg-gray-900/80">
-                        My Story
+                        About
                     </Button>
                 </motion.div>
             </div>

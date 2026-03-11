@@ -23,10 +23,10 @@ const CTASection = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button to="/memories" variant="primary" size="lg" className="rounded-full shadow-xl">
-                        Explore Memories
+                        Memories
                     </Button>
                     <Button to="/about" variant="ghost" size="lg" className="rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-                        Read My Story
+                        About
                     </Button>
                 </div>
             </motion.div>

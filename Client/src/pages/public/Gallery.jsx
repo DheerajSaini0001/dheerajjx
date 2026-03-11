@@ -134,7 +134,13 @@ const CarouselModal = ({ images, initialIndex, onClose }) => {
 const Gallery = () => {
   useSEO(
     "Aesthetic Visuals Lookbook | Gallery View By Dheerajj.x",
-    "Immerse yourself in the aesthetic lookbook of Dheerajj.x. A premium visual gallery showcasing striking photography, dark aesthetics, and fearless style."
+    "Immerse yourself in the aesthetic lookbook of Dheerajj.x. A premium visual gallery showcasing striking photography, dark aesthetics, and fearless style.",
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Dheerajj.x Visual Lookbook",
+      "description": "Immerse yourself in the aesthetic lookbook of Dheerajj.x. A premium visual gallery showcasing striking photography, dark aesthetics, and fearless style."
+    }
   );
   const { scrollYProgress } = useScroll();
   const yTransform = useTransform(scrollYProgress, [0, 1], [0, -200]);
@@ -238,8 +244,11 @@ const Gallery = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="max-w-sm"
           >
+            <p className="text-gray-600 dark:text-gray-400 md:text-right font-light leading-relaxed mb-4">
+              Welcome to a carefully curated exhibition of absolute visual identity. Here, stark grayscale beginnings seamlessly bloom into vibrant, cinematic reality. My approach to photography transcends merely capturing a moment; it intensely focuses on documenting raw aesthetics, unspoken emotion, and an unapologetic sense of style. Every frame you see in this collection has been deliberately selected to provoke thought, evoke nostalgia, and challenge the conventional boundaries of digital art. In a world oversaturated with perfectly polished, artificial imagery, I intentionally lean heavily into the authentic depth of shadows, the stark contrast of light, and the profound, underlying narratives found in the seemingly mundane. 
+            </p>
             <p className="text-gray-600 dark:text-gray-400 md:text-right font-light leading-relaxed">
-              A curated exhibition of visual identity. Grayscale beginnings blooming into vibrant cinematic reality. Documenting raw aesthetics and unapologetic style.
+              This gallery serves as both a personal archive and a public lookbook, intricately weaving together different chapters of exploration. Whether it is the gritty texture of urban architecture, the subtle micro-expressions in portraiture, or the neon-drenched atmospheres of late-night inspiration, every pixel serves a precise purpose. I firmly believe that true aesthetic brilliance lies in the fearless combination of vulnerability and strength. Take your time navigating through these visual records. Allow the imagery to speak for itself, and perhaps, you will find a quiet reflection of your own hidden stories embedded within the contrast.
             </p>
             <div className="md:text-right text-pink-500 dark:text-pink-400 mt-4 font-mono text-xs tracking-[0.3em] uppercase">
               Vol. 01 — 2026 Collection
@@ -247,18 +256,26 @@ const Gallery = () => {
           </motion.div>
         </motion.header>
 
-        {/* Categories */}
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-12">
+        {/* Animated Categories Tabs */}
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-12 p-1.5 rounded-full bg-gray-200/50 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 w-fit mx-auto md:mx-0 shadow-inner">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${activeCategory === cat
-                ? 'bg-gray-900 text-white dark:bg-white dark:text-black shadow-[0_0_20px_rgba(0,0,0,0.15)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105'
-                : 'bg-transparent text-gray-500 border border-gray-300 dark:border-white/10 hover:text-gray-900 dark:hover:text-white hover:border-gray-500 dark:hover:border-white/30 hover:bg-gray-100 dark:hover:bg-white/5'
-                }`}
+              className={`relative px-6 py-2.5 outline-none rounded-full text-xs font-bold uppercase tracking-[0.15em] transition-all duration-300 ${
+                activeCategory === cat
+                  ? 'text-white dark:text-black'
+                  : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+              }`}
             >
-              {cat}
+              {activeCategory === cat && (
+                <motion.div
+                  layoutId="gallery-tab"
+                  className="absolute inset-0 bg-gray-900 dark:bg-white rounded-full shadow-md shadow-gray-500/20 dark:shadow-white/20"
+                  transition={{ type: 'spring', stiffness: 450, damping: 30 }}
+                />
+              )}
+              <span className="relative z-10">{cat}</span>
             </button>
           ))}
         </div>
