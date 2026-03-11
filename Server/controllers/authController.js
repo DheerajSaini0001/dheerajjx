@@ -22,6 +22,11 @@ const sendOtp = asyncHandler(async (req, res) => {
         throw new Error('Please provide an email address');
     }
 
+    if (email.toLowerCase() !== 'dheerajsaini131652@gmail.com') {
+        res.status(403);
+        throw new Error('Unauthorized. Only the designated admin can access this portal.');
+    }
+
     // Usually, in a real app, you'll verify this is the ONLY admin email.
     // For demo/development purpose, if no admin exists, we'll create one just to test the flow,
     // or you can pre-seed an admin account in MongoDB.
@@ -95,6 +100,11 @@ const verifyOtp = asyncHandler(async (req, res) => {
     if (!email || !otp) {
         res.status(400);
         throw new Error('Please provide email and OTP');
+    }
+
+    if (email.toLowerCase() !== 'dheerajsaini131652@gmail.com') {
+        res.status(403);
+        throw new Error('Unauthorized. Only the designated admin can access this portal.');
     }
 
     const admin = await Admin.findOne({ email });
