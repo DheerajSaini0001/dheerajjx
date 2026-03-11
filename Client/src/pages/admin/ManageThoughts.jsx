@@ -127,7 +127,7 @@ const ManageThoughts = () => {
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-2">Manage Thoughts</h2>
+                    <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-2">Manage Thoughts</h1>
                     <p className="text-gray-500 dark:text-gray-400 font-medium tracking-wide">
                         Draft essays, design perspectives, and philosophy entries.
                     </p>

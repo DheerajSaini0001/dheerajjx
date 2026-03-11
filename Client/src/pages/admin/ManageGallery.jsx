@@ -133,7 +133,7 @@ const ManageGallery = () => {
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-2">Manage Gallery</h2>
+                    <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-2">Manage Gallery</h1>
                     <p className="text-gray-500 dark:text-gray-400 font-medium tracking-wide">
                         Upload high-definition production shots and camera metadata.
                     </p>

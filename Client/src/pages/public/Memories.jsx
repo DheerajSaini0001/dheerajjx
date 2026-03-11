@@ -37,7 +37,7 @@ const MemoryCard = ({ memory, index, onClick }) => {
 
       {/* Simple persistent title when NOT hovered */}
       <div className="absolute bottom-6 left-6 group-hover:opacity-0 transition-opacity duration-300">
-        <h3 className="text-white/90 font-bold tracking-wide drop-shadow-md">{memory.title}</h3>
+        <h2 className="text-white/90 font-bold tracking-wide drop-shadow-md">{memory.title}</h2>
       </div>
 
       {/* Rich Text content - revealed on hover */}
@@ -51,9 +51,9 @@ const MemoryCard = ({ memory, index, onClick }) => {
           </div>
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 mb-2 leading-tight transform -translate-y-2 group-hover:translate-y-0 transition-all duration-500 delay-150">
+        <h2 className="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 mb-2 leading-tight transform -translate-y-2 group-hover:translate-y-0 transition-all duration-500 delay-150">
           {memory.title}
-        </h3>
+        </h2>
 
         <p
           className="text-pink-300/90 text-xl font-medium italic transform -translate-y-2 group-hover:translate-y-0 transition-all duration-500 delay-200"

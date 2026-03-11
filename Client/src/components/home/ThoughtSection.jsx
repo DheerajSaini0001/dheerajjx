@@ -21,9 +21,9 @@ const ThoughtSection = ({ thought }) => {
                         &ldquo;
                     </span>
 
-                    <h3 className="text-2xl md:text-3xl font-medium text-gray-800 dark:text-gray-100 leading-relaxed z-10 relative italic" style={{ fontFamily: '"Dancing Script", cursive' }}>
+                    <blockquote className="text-2xl md:text-3xl font-medium text-gray-800 dark:text-gray-100 leading-relaxed z-10 relative italic" style={{ fontFamily: '"Dancing Script", cursive' }}>
                         {thought.text}
-                    </h3>
+                    </blockquote>
 
                     <div className="mt-8 flex flex-col items-center justify-center gap-4">
                         <div className="flex items-center gap-4">
@@ -47,7 +47,7 @@ const ThoughtSection = ({ thought }) => {
                         </button>
                     </div>
 
-                    <p className="mt-2 text-xs text-gray-400 font-mono">Thought of the Day</p>
+                    <h2 className="mt-2 text-xs text-gray-400 font-mono">Thought of the Day</h2>
 
                     {/* Right Quote */}
                     <span className="absolute bottom-6 right-6 md:bottom-10 md:right-10 text-8xl md:text-9xl text-pink-100 dark:text-gray-700 font-serif leading-none select-none opacity-80" style={{ fontFamily: 'Georgia, serif' }}>

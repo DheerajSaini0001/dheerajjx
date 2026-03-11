@@ -52,9 +52,9 @@ const PhilosophySection = () => {
                 {/* Label */}
                 <div className="flex items-center justify-center gap-3">
                     <div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-500 dark:to-purple-400 opacity-60" />
-                    <span className="text-xs uppercase tracking-[0.3em] font-semibold text-purple-600 dark:text-purple-400">
+                    <h2 className="text-xs uppercase tracking-[0.3em] font-semibold text-purple-600 dark:text-purple-400">
                         Philosophy of the Day
-                    </span>
+                    </h2>
                     <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-500 dark:to-purple-400 opacity-60" />
                 </div>
 
@@ -68,7 +68,7 @@ const PhilosophySection = () => {
 
                 {/* Rotating quote — AnimatePresence so it fades if key changes */}
                 <AnimatePresence mode="wait">
-                    <motion.h2
+                    <motion.blockquote
                         key={dayOfYear}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ const PhilosophySection = () => {
                             text-gray-800 dark:text-white/90"
                     >
                         {today.quote}
-                    </motion.h2>
+                    </motion.blockquote>
                 </AnimatePresence>
 
                 {/* Attribution */}

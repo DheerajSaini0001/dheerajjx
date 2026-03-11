@@ -91,9 +91,9 @@ const Footer = () => {
 
           {/* Connect / Share */}
           <div className="space-y-5">
-            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-gray-400 dark:text-gray-600">
+            <h2 className="text-xs font-bold uppercase tracking-[0.25em] text-gray-400 dark:text-gray-600">
               Share & Connect
-            </h3>
+            </h2>
             <p className="text-sm text-gray-500 dark:text-gray-500 leading-relaxed">
               Like what you see? Share this space with the world. Every share inspires the journey.
             </p>
