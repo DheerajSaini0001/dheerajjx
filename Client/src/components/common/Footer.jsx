@@ -100,7 +100,7 @@ const Footer = () => {
             {/* Share buttons */}
             <div className="flex flex-wrap gap-2 pt-1">
               <a
-                href="https://twitter.com/intent/tweet?url=https://dheerajj.x.vercel.app&text=Check%20out%20Dheerajj.x%20–%20Smart,%20Dark%20%26%20Fearless%20Soul"
+                href="https://twitter.com/intent/tweet?url=https://dheerajjx.vercel.app&text=Check%20out%20Dheerajj.x%20–%20Smart,%20Dark%20%26%20Fearless%20Soul"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-white/[0.06] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300"
@@ -111,7 +111,7 @@ const Footer = () => {
                 Share on X
               </a>
               <a
-                href="https://www.facebook.com/sharer/sharer.php?u=https://dheerajj.x.vercel.app"
+                href="https://www.facebook.com/sharer/sharer.php?u=https://dheerajjx.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-white/[0.06] hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] dark:hover:bg-[#1877F2] dark:hover:text-white dark:hover:border-[#1877F2] transition-all duration-300"
@@ -122,7 +122,7 @@ const Footer = () => {
                 Share
               </a>
               <a
-                href="https://www.linkedin.com/sharing/share-offsite/?url=https://dheerajj.x.vercel.app"
+                href="https://www.linkedin.com/sharing/share-offsite/?url=https://dheerajjx.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-white/[0.06] hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] dark:hover:bg-[#0A66C2] dark:hover:text-white dark:hover:border-[#0A66C2] transition-all duration-300"

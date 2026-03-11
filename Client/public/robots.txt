@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://dheerajj.x.vercel.app/sitemap.xml
+Sitemap: https://dheerajjx.vercel.app/sitemap.xml
