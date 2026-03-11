@@ -35,7 +35,7 @@ const ManageMemories = () => {
   const fetchMemories = async () => {
     setIsFetching(true);
     try {
-      const res = await fetch('http://localhost:201/api/memories');
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/memories`);
       const data = await res.json();
       if (res.ok && Array.isArray(data)) {
         setMemories(data);
@@ -77,7 +77,7 @@ const ManageMemories = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to permanently delete this memory?")) {
       try {
-        const res = await fetch(`http://localhost:201/api/memories/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/memories/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -132,8 +132,8 @@ const ManageMemories = () => {
 
     try {
       const url = isEditing
-        ? `http://localhost:201/api/memories/${formData._id}`
-        : `http://localhost:201/api/memories`;
+        ? `${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/memories/${formData._id}`
+        : `${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/memories`;
 
       const res = await fetch(url, {
         method: isEditing ? 'PUT' : 'POST',

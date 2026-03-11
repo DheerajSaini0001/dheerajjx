@@ -53,7 +53,7 @@ const Thoughts = () => {
   useEffect(() => {
     const fetchThoughts = async () => {
       try {
-        const res = await fetch('http://localhost:201/api/thoughts');
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/thoughts`);
         const data = await res.json();
         if (Array.isArray(data)) {
           setThoughtsData(data);

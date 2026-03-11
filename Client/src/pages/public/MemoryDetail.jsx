@@ -143,7 +143,7 @@ const MemoryDetail = () => {
     useEffect(() => {
         const fetchMemory = async () => {
             try {
-                const res = await fetch(`http://localhost:201/api/memories/${id}`);
+                const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/memories/${id}`);
                 const data = await res.json();
                 if (res.ok) {
                     setMemory(data);

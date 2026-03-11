@@ -23,7 +23,7 @@ import p17 from '../../assets/images/MyStory/WhatsApp Image 2026-02-20 at 10.43.
 
 const FALLBACK_PHOTOS = [p8]; // Using the image with "11" in the filename as the sole default
 const INTERVAL_MS = 3 * 60 * 60 * 1000; // 3 hours
-const API = import.meta.env.VITE_API_URL || 'http://localhost:201';
+const API = import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:201'}`;
 
 /** Returns which index is active right now based on wall clock. */
 const getSlot = (poolSize) => Math.floor(Date.now() / INTERVAL_MS) % poolSize;

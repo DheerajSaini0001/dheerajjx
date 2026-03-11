@@ -151,7 +151,7 @@ const Gallery = () => {
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const res = await fetch('http://localhost:201/api/gallery');
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/gallery`);
         const data = await res.json();
         if (Array.isArray(data)) {
           // Apply dynamic Bento Grid classes upon fetching layout

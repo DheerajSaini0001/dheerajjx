@@ -5,7 +5,7 @@ import {
     CheckCircle2, Loader2, PenLine, Sparkles, GripVertical, X
 } from 'lucide-react';
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:201';
+const API = import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:201'}`;
 const token = () => localStorage.getItem('adminToken') || '';
 
 // ── Small reusable Toast ────────────────────────────────────────────────────

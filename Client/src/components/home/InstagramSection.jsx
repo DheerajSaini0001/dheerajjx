@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const API_BASE = 'http://localhost:201';
+const API_BASE = `${import.meta.env.VITE_API_URL || 'http://localhost:201'}`;
 
 const InstagramSection = () => {
     const [posts, setPosts] = useState([]);

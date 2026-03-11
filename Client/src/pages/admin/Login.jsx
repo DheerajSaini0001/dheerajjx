@@ -28,7 +28,7 @@ const Login = () => {
     setState(prev => ({ ...prev, isSubmitting: true }));
 
     try {
-      const res = await fetch('http://localhost:201/api/auth/send-otp', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/auth/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: state.email }),
@@ -57,7 +57,7 @@ const Login = () => {
     setState(prev => ({ ...prev, isSubmitting: true }));
 
     try {
-      const res = await fetch('http://localhost:201/api/auth/verify-otp', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/auth/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: state.email, otp: state.otp }),

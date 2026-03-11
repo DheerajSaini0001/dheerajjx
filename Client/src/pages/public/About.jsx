@@ -7,7 +7,7 @@ import StorySection from '../../components/story/StorySection';
 import StoryHighlight from '../../components/story/StoryHighlight';
 import StorySignature from '../../components/story/StorySignature';
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:201';
+const API = import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:201'}`;
 
 // ── Static fallback (shown instantly; replaced once API responds) ────────────
 const FALLBACK_HIGHLIGHTS = [

@@ -27,7 +27,7 @@ const ManageThoughts = () => {
     const fetchThoughts = async () => {
         setIsFetching(true);
         try {
-            const res = await fetch('http://localhost:201/api/thoughts');
+            const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/thoughts`);
             const data = await res.json();
             if (res.ok && Array.isArray(data)) {
                 setThoughts(data);
@@ -64,7 +64,7 @@ const ManageThoughts = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to permanently delete this essay?")) {
             try {
-                const res = await fetch(`http://localhost:201/api/thoughts/${id}`, {
+                const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/thoughts/${id}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -83,8 +83,8 @@ const ManageThoughts = () => {
 
         try {
             const url = isEditing
-                ? `http://localhost:201/api/thoughts/${formData._id}`
-                : `http://localhost:201/api/thoughts`;
+                ? `${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/thoughts/${formData._id}`
+                : `${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/thoughts`;
 
             const res = await fetch(url, {
                 method: isEditing ? 'PUT' : 'POST',

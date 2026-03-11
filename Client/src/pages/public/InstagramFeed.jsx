@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSEO from '../../utils/useSEO';
 
-const API_BASE = 'http://localhost:201';
+const API_BASE = `${import.meta.env.VITE_API_URL || 'http://localhost:201'}`;
 
 // Lightbox Modal
 const InstagramLightbox = ({ post, onClose }) => {

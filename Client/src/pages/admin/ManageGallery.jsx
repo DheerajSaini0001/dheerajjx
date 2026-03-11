@@ -26,7 +26,7 @@ const ManageGallery = () => {
     const fetchGallery = async () => {
         setIsFetching(true);
         try {
-            const res = await fetch('http://localhost:201/api/gallery');
+            const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/gallery`);
             const data = await res.json();
             if (res.ok && Array.isArray(data)) {
                 setGallery(data);
@@ -59,7 +59,7 @@ const ManageGallery = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to permanently delete this photo?")) {
             try {
-                const res = await fetch(`http://localhost:201/api/gallery/${id}`, {
+                const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/gallery/${id}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -99,7 +99,7 @@ const ManageGallery = () => {
         uploadData.append('image', imageFile);
 
         try {
-            const res = await fetch(`http://localhost:201/api/gallery`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/gallery`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: uploadData,

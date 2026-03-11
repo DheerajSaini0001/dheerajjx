@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Activity, ImagePlus, Trash2, Upload, CheckCircle2, Loader2, X, Image } from 'lucide-react';
 import MyStoryManager from '../../components/admin/MyStoryManager';
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:201';
+const API = import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:201'}`;
 
 // ── Tiny hook to get auth token ────────────────────────────────────────────
 const useToken = () => localStorage.getItem('adminToken') || '';

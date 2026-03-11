@@ -100,7 +100,7 @@ const Memories = () => {
   useEffect(() => {
     const fetchMemories = async () => {
       try {
-        const res = await fetch('http://localhost:201/api/memories');
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:201'}/api/memories`);
         const data = await res.json();
 
         // Compute Masonry Layout Sizes dynamically
