@@ -17,8 +17,10 @@ const instagramRoutes = require('./routes/instagramRoutes');
 const cron = require('node-cron');
 const { syncInstagramPosts } = require('./utils/instagramService');
 
-// Load env vars
-dotenv.config();
+// Load env vars if not in production
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
 
 // Connect to database
 connectDB();
