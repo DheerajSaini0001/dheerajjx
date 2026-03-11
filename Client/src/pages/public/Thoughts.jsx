@@ -154,17 +154,18 @@ const Thoughts = () => {
             </span>
           </motion.div>
 
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-[1]"
           >
-            Deep Dives.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-pink-500 to-orange-400">
-              Into the Mind.
-            </span>
-          </motion.h1>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-[1]">
+              Deep Dives.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-pink-500 to-orange-400">
+                Into the Mind.
+              </span>
+            </h1>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}

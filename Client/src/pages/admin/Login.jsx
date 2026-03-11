@@ -190,7 +190,7 @@ const Login = () => {
             <div className="lg:hidden w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 via-violet-500 to-pink-500 flex flex-col items-center justify-center mx-auto mb-6 shadow-xl shadow-violet-500/20">
               <ShieldCheck className="text-white w-8 h-8" />
             </div>
-            <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">System Auth</h1>
+            <h2 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">System Auth</h2>
             <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm font-medium">
               {step === 1 ? 'Enter the admin email to request an access token.' : 'Enter the secure OTP sent to your inbox.'}
             </p>

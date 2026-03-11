@@ -214,13 +214,19 @@ const InstagramFeed = () => {
                                 transition={{ duration: 1, delay: 0.2 }}
                                 className="h-[2px] bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600"
                             />
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9]">
-                                <span className="text-gray-900 dark:text-white">Insta</span>
-                                <br className="hidden md:block" />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600">
-                                    gram.
-                                </span>
-                            </h1>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8 }}
+                            >
+                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9]">
+                                    <span className="text-gray-900 dark:text-white">Insta</span>
+                                    <br className="hidden md:block" />
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600">
+                                        gram.
+                                    </span>
+                                </h1>
+                            </motion.div>
                         </div>
 
                         <div className="max-w-sm">

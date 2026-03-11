@@ -227,15 +227,16 @@ const Gallery = () => {
               transition={{ duration: 1, delay: 0.2 }}
               className="h-[2px] bg-gradient-to-r from-pink-500 to-violet-500"
             />
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85]"
             >
-              The <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-600 to-gray-400 dark:from-white dark:via-gray-300 dark:to-gray-600">Lookbook.</span>
-            </motion.h1>
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85]">
+                The <br className="hidden md:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-600 to-gray-400 dark:from-white dark:via-gray-300 dark:to-gray-600">Lookbook.</span>
+              </h1>
+            </motion.div>
           </div>
 
           <motion.div
