@@ -46,29 +46,34 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 201;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+// Export for Vercel Serverless Functions
+module.exports = app;
 
-    // Start Instagram Auto-Feed cron scheduler
-    const pollInterval = parseInt(process.env.POLL_INTERVAL_MINUTES) || 5;
-    if (process.env.INSTAGRAM_ACCESS_TOKEN) {
-        console.log(`[Instagram Cron] Scheduler started — polling every ${pollInterval} minutes`);
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
 
-        // Run initial sync on startup
-        syncInstagramPosts().catch(err =>
-            console.error('[Instagram Cron] Initial sync error:', err.message)
-        );
+        // Start Instagram Auto-Feed cron scheduler
+        const pollInterval = parseInt(process.env.POLL_INTERVAL_MINUTES) || 5;
+        if (process.env.INSTAGRAM_ACCESS_TOKEN) {
+            console.log(`[Instagram Cron] Scheduler started — polling every ${pollInterval} minutes`);
 
-        // Schedule recurring sync
-        cron.schedule(`*/${pollInterval} * * * *`, async () => {
-            console.log(`[Instagram Cron] Scheduled poll triggered at ${new Date().toISOString()}`);
-            try {
-                await syncInstagramPosts();
-            } catch (err) {
-                console.error('[Instagram Cron] Poll error:', err.message);
-            }
-        });
-    } else {
-        console.log('[Instagram Cron] Skipped — INSTAGRAM_ACCESS_TOKEN not set in .env');
-    }
-});
+            // Run initial sync on startup
+            syncInstagramPosts().catch(err =>
+                console.error('[Instagram Cron] Initial sync error:', err.message)
+            );
+
+            // Schedule recurring sync
+            cron.schedule(`*/${pollInterval} * * * *`, async () => {
+                console.log(`[Instagram Cron] Scheduled poll triggered at ${new Date().toISOString()}`);
+                try {
+                    await syncInstagramPosts();
+                } catch (err) {
+                    console.error('[Instagram Cron] Poll error:', err.message);
+                }
+            });
+        } else {
+            console.log('[Instagram Cron] Skipped — INSTAGRAM_ACCESS_TOKEN not set in .env');
+        }
+    });
+}
