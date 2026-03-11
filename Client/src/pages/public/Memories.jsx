@@ -141,7 +141,7 @@ const Memories = () => {
   }, [selectedMemory]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#030305] overflow-hidden pt-24 pb-20 selection:bg-pink-500/30 selection:text-pink-200">
+    <article className="relative min-h-screen bg-white dark:bg-[#030303] overflow-hidden pt-24 pb-32 selection:bg-pink-500/30 selection:text-pink-200">
       {/* Background effects */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-pink-500/10 dark:bg-pink-600/10 rounded-full blur-[150px]" />
@@ -153,6 +153,7 @@ const Memories = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Dynamic Parallax Header Section */}
+        <header>
         <motion.div
           style={{ y: yTransform, opacity: opacityTransform }}
           className="text-center max-w-4xl mx-auto mb-24 mt-10 space-y-6"
@@ -208,8 +209,10 @@ const Memories = () => {
             A photograph is more than just a visual record. It is a time capsule, a bridge between what was and what will be. Through these carefully curated digital archives, I invite you to explore a visual journey of growth, passion, and artistic exploration. Each image holds a unique story, an untold emotion, and a distinct perspective on the world. I believe that life is a collection of fleeting moments, and by preserving them, we create a legacy of beauty and truth. This gallery is a tribute to those quiet times of reflection, the loud celebrations of success, the subtle transitions between seasons, and the profound beauty found in everyday simplicity. Through my lens, I seek not only to document my reality but to evoke a sense of shared human experience. From the neon-lit streets of modern cyberpunk landscapes to the raw, unfiltered expressions of genuine emotion, every frame is an intentional choice. As you browse this collection, I hope these visuals ignite your own memories, inspire a sense of wonder, and remind you of the incredible depth that life has to offer when we pause long enough to truly look.
           </motion.div>
         </motion.div>
+        </header>
 
         {/* Loader / Masonry Grid */}
+        <section>
         {isLoading ? (
           <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
             <Loader2 size={40} className="animate-spin text-pink-500" />
@@ -227,8 +230,10 @@ const Memories = () => {
             ))}
           </div>
         )}
+        </section>
 
         {/* Footer Message */}
+        <footer>
         {!isLoading && memoryData.length > 0 && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -247,9 +252,10 @@ const Memories = () => {
             </div>
           </motion.div>
         )}
+        </footer>
       </div>
 
-    </div>
+    </article>
   );
 };
 

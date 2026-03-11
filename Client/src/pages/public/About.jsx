@@ -113,17 +113,19 @@ const About = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full">
+    <article className="flex flex-col w-full">
       {/* Hero */}
-      <StoryHero />
+      <section>
+        <StoryHero />
+      </section>
 
       {/* Highlights Grid — pass API-driven highlights as prop */}
-      <div className="border-t border-gray-200 dark:border-white/5">
+      <section className="border-t border-gray-200 dark:border-white/5">
         <StoryHighlight highlights={highlights} />
-      </div>
+      </section>
 
       {/* Story Chapters header */}
-      <div className="relative w-full bg-white dark:bg-gray-950">
+      <section className="relative w-full bg-white dark:bg-gray-950">
         <div className="max-w-5xl mx-auto px-4 pt-24 pb-0 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <span className="text-xs uppercase tracking-[0.35em] text-pink-500 dark:text-pink-400 font-semibold">The Journey</span>
@@ -131,18 +133,18 @@ const About = () => {
             <div className="mt-5 w-16 h-[2px] bg-gradient-to-r from-pink-500 to-violet-500 mx-auto rounded-full" />
           </motion.div>
         </div>
-      </div>
 
-      {/* Chapters — rendered from API data */}
-      {chapters.map((section, i) => (
-        <ChapterSection key={i} section={section} index={i} />
-      ))}
+        {/* Chapters — rendered from API data */}
+        {chapters.map((section, i) => (
+          <ChapterSection key={i} section={section} index={i} />
+        ))}
+      </section>
 
       {/* Signature — pass API-driven content as props */}
-      <div className="border-t border-gray-200 dark:border-white/5">
+      <aside className="border-t border-gray-200 dark:border-white/5">
         <StorySignature quote={signatureQuote} tags={signatureTags} />
-      </div>
-    </div>
+      </aside>
+    </article>
   );
 };
 

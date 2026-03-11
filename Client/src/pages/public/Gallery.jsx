@@ -41,7 +41,7 @@ const CarouselModal = ({ images, initialIndex, onClose }) => {
   if (!currentImage) return null;
 
   return (
-    <motion.div
+    <motion.aside
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -127,7 +127,7 @@ const CarouselModal = ({ images, initialIndex, onClose }) => {
 
       {/* Progress indicator */}
       <div className="absolute bottom-0 left-0 h-1 bg-pink-500 transition-all duration-300 z-[120]" style={{ width: `${((currentIndex + 1) / images.length) * 100}%` }} />
-    </motion.div>
+    </motion.aside>
   );
 };
 
@@ -192,7 +192,7 @@ const Gallery = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] dark:bg-[#030303] text-gray-900 dark:text-white pt-28 pb-32 overflow-hidden selection:bg-pink-500/30 selection:text-pink-200">
+    <article className="min-h-screen bg-[#f8f9fa] dark:bg-[#030303] text-gray-900 dark:text-white pt-28 pb-32 overflow-hidden selection:bg-pink-500/30 selection:text-pink-200">
 
       {/* Massive scrolling text background */}
       <div className="fixed top-1/2 left-0 w-full -translate-y-1/2 pointer-events-none z-0 overflow-hidden opacity-[0.02] mix-blend-overlay">
@@ -257,7 +257,7 @@ const Gallery = () => {
         </motion.header>
 
         {/* Animated Categories Tabs */}
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-12 p-1.5 rounded-full bg-gray-200/50 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 w-fit mx-auto md:mx-0 shadow-inner">
+        <nav aria-label="Gallery Categories" className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-12 p-1.5 rounded-full bg-gray-200/50 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 w-fit mx-auto md:mx-0 shadow-inner">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -278,7 +278,7 @@ const Gallery = () => {
               <span className="relative z-10">{cat}</span>
             </button>
           ))}
-        </div>
+        </nav>
 
         {/* Loading Spinner */}
         {isLoading ? (
@@ -286,10 +286,10 @@ const Gallery = () => {
             <Loader2 className="animate-spin text-pink-500" size={40} />
           </div>
         ) : (
-          <motion.div layout className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 auto-rows-[minmax(180px,auto)]">
+          <motion.section layout className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 auto-rows-[minmax(180px,auto)]">
             <AnimatePresence mode="popLayout">
               {filteredImages.map((img) => (
-                <motion.div
+                <motion.article
                   layout
                   variants={filterVariants}
                   initial="hidden"
@@ -333,10 +333,10 @@ const Gallery = () => {
                   <div className="absolute bottom-4 left-4 text-[9px] font-mono tracking-widest text-white/40 uppercase group-hover:opacity-0 transition-opacity">
                     Vol. 01 / {img.shutter}
                   </div>
-                </motion.div>
+                </motion.article>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </motion.section>
         )}
 
         {!isLoading && filteredImages.length === 0 && (
@@ -358,7 +358,7 @@ const Gallery = () => {
           />
         )}
       </AnimatePresence>
-    </div>
+    </article>
   );
 };
 

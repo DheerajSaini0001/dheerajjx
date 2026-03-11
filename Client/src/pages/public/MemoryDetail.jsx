@@ -38,7 +38,7 @@ const PathwayLightbox = ({ images, startIndex, onClose }) => {
     };
 
     return (
-        <motion.div
+        <motion.aside
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -103,7 +103,7 @@ const PathwayLightbox = ({ images, startIndex, onClose }) => {
                     </button>
                 ))}
             </div>
-        </motion.div>
+        </motion.aside>
     );
 };
 
@@ -178,7 +178,7 @@ const MemoryDetail = () => {
     const allImages = [memory.imageUrl, ...(memory.gallery || [])];
 
     return (
-        <div className="min-h-screen bg-[#f8f9fa] dark:bg-[#030303] text-gray-900 dark:text-white pt-24 md:pt-32 pb-20 selection:bg-pink-500/30 selection:text-pink-200">
+        <article className="min-h-screen bg-[#f8f9fa] dark:bg-[#030303] text-gray-900 dark:text-white pt-24 md:pt-32 pb-20 selection:bg-pink-500/30 selection:text-pink-200">
 
             {/* Ambient Background */}
             <div className="fixed inset-0 pointer-events-none z-0">
@@ -224,7 +224,7 @@ const MemoryDetail = () => {
                 </motion.div>
 
                 {/* ─── TITLE + QUOTE + DESCRIPTION ────────────────────── */}
-                <motion.div
+                <motion.header
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15, duration: 0.8 }}
@@ -250,11 +250,11 @@ const MemoryDetail = () => {
                             precisely as it felt originally.
                         </p>
                     </div>
-                </motion.div>
+                </motion.header>
 
                 {/* ─── PHOTO PATHWAY ─────────────────────────────────── */}
                 {hasGallery && (
-                    <motion.div
+                    <motion.section
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.7 }}
@@ -402,12 +402,12 @@ const MemoryDetail = () => {
                                 <div className="h-px w-8 bg-gradient-to-l from-transparent to-violet-500/30" />
                             </div>
                         </motion.div>
-                    </motion.div>
+                    </motion.section>
                 )}
 
 
                 {/* ─── CONTENT BLOCK ───────────────────────────────────── */}
-                <div className="flex flex-col gap-10">
+                <section className="flex flex-col gap-10">
 
                     {/* ── Meta Row ── */}
                     <motion.div
@@ -479,7 +479,7 @@ const MemoryDetail = () => {
                             )}
                         </div>
                     </motion.div>
-                </div>
+                </section>
             </div>
 
             {/* Lightbox Portal */}
@@ -492,7 +492,7 @@ const MemoryDetail = () => {
                     />
                 )}
             </AnimatePresence>
-        </div >
+        </article >
     );
 };
 

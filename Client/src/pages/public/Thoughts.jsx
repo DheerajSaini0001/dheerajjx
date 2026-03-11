@@ -127,7 +127,7 @@ const Thoughts = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] dark:bg-[#08080a] pt-28 pb-20 selection:bg-violet-500/30 selection:text-violet-200">
+    <article className="min-h-screen bg-[#f8f9fa] dark:bg-[#08080a] pt-28 pb-20 selection:bg-violet-500/30 selection:text-violet-200">
       {/* Background effects */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/3" />
@@ -187,7 +187,8 @@ const Thoughts = () => {
         </header>
 
         {/* Categories */}
-        <motion.div
+        <motion.nav
+          aria-label="Category Filtration"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -205,17 +206,17 @@ const Thoughts = () => {
               {cat}
             </button>
           ))}
-        </motion.div>
+        </motion.nav>
 
         {/* Thoughts List */}
-        <div className="space-y-6">
+        <section className="space-y-6">
           <AnimatePresence mode="popLayout">
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
                 <Loader2 className="animate-spin text-violet-500" size={40} />
               </div>
             ) : filteredThoughts.map((thought, i) => (
-              <motion.div
+              <motion.article
                 layout
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -259,10 +260,10 @@ const Thoughts = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </AnimatePresence>
-        </div>
+        </section>
       </div>
 
       {/* ═══════════════════════════════════════════════════════ */}
@@ -289,6 +290,7 @@ const Thoughts = () => {
               onClick={(e) => e.stopPropagation()}
               style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(139,92,246,0.3) transparent' }}
             >
+              <article>
               {/* ─── Reading Progress Bar ─── */}
               <div className="sticky top-0 z-20 h-1 bg-gray-100 dark:bg-white/5">
                 <motion.div
@@ -299,7 +301,7 @@ const Thoughts = () => {
               </div>
 
               {/* ─── Hero Header Section ─── */}
-              <div className="relative overflow-hidden">
+              <header className="relative overflow-hidden">
                 {/* Ambient gradient glow */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${selectedThought.gradient} opacity-[0.06] dark:opacity-[0.08]`} />
                 <div className="absolute -top-32 -right-32 w-96 h-96 bg-violet-500/10 rounded-full blur-[100px]" />
@@ -369,10 +371,11 @@ const Thoughts = () => {
 
                 {/* Decorative bottom edge */}
                 <div className="h-[1px] bg-gradient-to-r from-transparent via-gray-200 dark:via-white/10 to-transparent" />
-              </div>
+              </header>
 
               {/* ─── Article Body ─── */}
               <div className="px-8 md:px-14 lg:px-20 py-12">
+                <section>
                 {/* Pull-quote excerpt */}
                 {selectedThought.excerpt && (
                   <motion.blockquote
@@ -404,6 +407,7 @@ const Thoughts = () => {
                 >
                   {renderContent(selectedThought.content)}
                 </motion.div>
+                </section>
 
                 {/* ─── Decorative Divider ─── */}
                 <div className="flex items-center justify-center gap-3 py-14">
@@ -413,6 +417,7 @@ const Thoughts = () => {
                 </div>
 
                 {/* ─── Signature End Section ─── */}
+                <footer>
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -437,12 +442,14 @@ const Thoughts = () => {
                     Written with intention
                   </p>
                 </motion.div>
+                </footer>
               </div>
+              </article>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </article>
   );
 };
 

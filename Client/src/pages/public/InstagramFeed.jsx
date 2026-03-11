@@ -9,7 +9,7 @@ const InstagramLightbox = ({ post, onClose }) => {
     if (!post) return null;
 
     return (
-        <motion.div
+        <motion.aside
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -97,7 +97,7 @@ const InstagramLightbox = ({ post, onClose }) => {
                     </div>
                 </div>
             </motion.div>
-        </motion.div>
+        </motion.aside>
     );
 };
 
@@ -191,7 +191,7 @@ const InstagramFeed = () => {
     });
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-[#030303] text-gray-900 dark:text-white pt-28 pb-32 overflow-hidden selection:bg-pink-500/30">
+        <article className="min-h-screen bg-gray-50 dark:bg-[#030303] text-gray-900 dark:text-white pt-28 pb-32 overflow-hidden selection:bg-pink-500/30">
             {/* Background Elements */}
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="absolute top-[-5%] right-[-5%] w-[30%] h-[30%] bg-gradient-to-br from-pink-500/8 to-purple-500/8 dark:from-pink-500/5 dark:to-purple-500/5 rounded-full blur-[120px]" />
@@ -251,7 +251,7 @@ const InstagramFeed = () => {
 
                 {/* Animated Instagram Categories Tabs */}
                 {posts.length > 0 && (
-                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-12 p-1.5 rounded-full bg-gray-200/50 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 w-fit mx-auto md:mx-0 shadow-inner">
+                    <nav aria-label="Instagram Tabs" className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-12 p-1.5 rounded-full bg-gray-200/50 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 w-fit mx-auto md:mx-0 shadow-inner">
                         {tabs.map((tab) => (
                             <button
                                 key={tab}
@@ -272,7 +272,7 @@ const InstagramFeed = () => {
                                 <span className="relative z-10">{tab}</span>
                             </button>
                         ))}
-                    </div>
+                    </nav>
                 )}
 
                 {/* Error State */}
@@ -303,7 +303,7 @@ const InstagramFeed = () => {
 
                 {/* Feed Grid Responsive */}
                 {posts.length > 0 && (
-                    <motion.div
+                    <motion.section
                         layout
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -312,7 +312,7 @@ const InstagramFeed = () => {
                     >
                         <AnimatePresence mode="popLayout">
                             {filteredPosts.map((post, index) => (
-                                <motion.div
+                                <motion.article
                                     layout
                                     key={post.id}
                                     initial={{ opacity: 0, scale: 0.9 }}
@@ -399,10 +399,10 @@ const InstagramFeed = () => {
                                     
                                     {/* Outer Hover Glow effect */}
                                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5 dark:ring-white/5 group-hover:ring-pink-500/30 transition-all duration-500 pointer-events-none" />
-                                </motion.div>
+                                </motion.article>
                             ))}
                         </AnimatePresence>
-                    </motion.div>
+                    </motion.section>
                 )}
 
                 {/* Load More */}
@@ -448,7 +448,7 @@ const InstagramFeed = () => {
                     />
                 )}
             </AnimatePresence>
-        </div>
+        </article>
     );
 };
 

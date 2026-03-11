@@ -11,7 +11,7 @@ const MainLayout = () => {
       <Navbar />
 
       {/* Main Content */}
-      <main className="flex-grow pt-20 w-full">
+      <main className="flex-grow pt-16 w-full">
         <Outlet />
       </main>
 

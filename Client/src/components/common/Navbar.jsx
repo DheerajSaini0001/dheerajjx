@@ -27,13 +27,14 @@ const Navbar = () => {
   }, []);
 
   return (
-    <motion.nav
+    <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="fixed w-full z-50"
     >
       {/* Top gradient accent line */}
+      <nav className="w-full h-full">
       <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 via-purple-500 via-pink-500 to-blue-500 bg-[length:200%_100%] animate-gradient-x" />
 
       {/* Main bar */}
@@ -65,7 +66,7 @@ const Navbar = () => {
                 <NavLink
                   key={link.name}
                   to={link.path}
-                  className="relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 group"
+                  className="relative px-4 py- text-sm font-medium rounded-full transition-all duration-200 group"
                 >
                   {({ isActive }) => (
                     <>
@@ -225,7 +226,8 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+      </nav>
+    </motion.header>
   );
 };
 

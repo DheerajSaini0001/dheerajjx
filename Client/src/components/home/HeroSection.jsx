@@ -60,7 +60,7 @@ const HeroSection = () => {
     const currentSrc = photos[slot]?.imageUrl || FALLBACK_PHOTOS[0];
 
     return (
-        <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-0 overflow-hidden pt-20">
+        <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-0 overflow-hidden pt-16">
 
             {/* ── Background Photo (crossfades every 3 h) ── */}
             <div className="absolute inset-0 z-0">

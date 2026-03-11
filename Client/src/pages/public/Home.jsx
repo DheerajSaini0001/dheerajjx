@@ -74,16 +74,24 @@ const Home = () => {
   }
 
   return (
-    <div className="flex flex-col w-full">
-      <HeroSection />
-      <IdentitySection about={about} />
-      <FeaturedMemories memories={memories} />
-      <PhilosophySection />
-      <InstagramSection />
-      <ThoughtSection thought={thought} />
-      <CTASection />
+    <article className="flex flex-col w-full">
+      <section>
+        <HeroSection />
+        <IdentitySection about={about} />
+        <FeaturedMemories memories={memories} />
+        <PhilosophySection />
+        <InstagramSection />
+      </section>
+
+      <aside>
+        <ThoughtSection thought={thought} />
+      </aside>
+
+      <section>
+        <CTASection />
+      </section>
       {/* Footer is rendered by MainLayout */}
-    </div>
+    </article>
   );
 };
 
