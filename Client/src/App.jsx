@@ -2,10 +2,16 @@ import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes/AppRoutes';
 import { ThemeProvider } from './context/ThemeContext';
 import usePageTracking from './utils/usePageTracking';
+import ScrollToTop from './utils/ScrollToTop';
 
 function AppContent() {
   usePageTracking();
-  return <AppRoutes />;
+  return (
+    <>
+      <ScrollToTop />
+      <AppRoutes />
+    </>
+  );
 }
 
 function App() {

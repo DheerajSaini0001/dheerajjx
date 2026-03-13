@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const GA_MEASUREMENT_ID = 'G-E7B0QF4LCF';
+const GA_MEASUREMENT_ID = 'G-5BGTFXVK8P';
 
 /**
  * Custom hook to track page views in GA4 on every route change.
